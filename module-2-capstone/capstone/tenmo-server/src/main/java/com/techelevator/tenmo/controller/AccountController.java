@@ -22,6 +22,8 @@ public class AccountController extends BaseController {
     public BigDecimal getAccountList(Principal principal){
         User sampleUser = super.getUserFromPrincipal(principal);
         //this should return the actual balance
+        //go after the accountDao and get the whole account object back
+        //then return account.getBalance()
         return BigDecimal.valueOf(999.99d);
     }
 }
