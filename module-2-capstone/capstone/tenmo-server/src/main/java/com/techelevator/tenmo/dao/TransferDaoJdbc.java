@@ -86,7 +86,7 @@ public class TransferDaoJdbc implements TransferDao {
 
     @Override
     public Transfer getTransfersByTransferID(long TransferId){
-        Transfer transferid  = null;
+        Transfer transfer  = null;
         String sql = "select\n" +
                 "\t\ttransfer_id\n" +
                 "\t\t,tt.transfer_type_desc\n" +
@@ -117,12 +117,12 @@ public class TransferDaoJdbc implements TransferDao {
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, TransferId);
             if (results.next()) {
-                transferid = mapRowToTransfer(results);
+                transfer = mapRowToTransfer(results);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         }
-        return transferid;
+        return transfer;
     }
 
     public Transfer mapRowToTransfer(SqlRowSet rowSet) {

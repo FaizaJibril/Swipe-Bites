@@ -31,6 +31,6 @@ public class TransferController extends BaseController{
     @RequestMapping(path="/transfers/{id}",method = RequestMethod.GET)
     public Transfer getTransfer(Principal principal, @PathVariable long id){
         User user = super.getUserFromPrincipal(principal);
-        return new Transfer();
+        return transferService.getTransfer(user,id);
     }
 }

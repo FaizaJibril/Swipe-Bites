@@ -18,4 +18,8 @@ public class TransferServiceImpl implements TransferService {
     public List<Transfer> listTransferForUser(User user){
         return transferDao.getTransfersByUserId(user.getId());
     }
+    @Override
+    public Transfer getTransfer(User user, long id){
+        return transferDao.getTransfersByTransferID(id);
+    }
 }
