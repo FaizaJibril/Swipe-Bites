@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TransferService {
     List<Transfer> listTransferForUser(User user);
+
 }
+

@@ -9,7 +9,10 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import com.techelevator.tenmo.exception.DaoException;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class TransferDaoJdbc implements TransferDao {
     private final JdbcTemplate jdbcTemplate;
 
