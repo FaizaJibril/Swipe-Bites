@@ -10,6 +10,7 @@ public class Account {
     private long account_id;
     private String username;
     private String email;
+
     private BigDecimal balance = BigDecimal.valueOf(0);
     @JsonIgnore //
     private String password;

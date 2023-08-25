@@ -9,6 +9,8 @@ public class Transfer {
     private String transferStatus;
     private User userFrom;
     private User userTo;
+    private Account accountTo;
+    private Account accountFrom;
     private BigDecimal amount;
 
     public Long getTransferId() {
@@ -46,5 +48,21 @@ public class Transfer {
     }
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Account getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(Account accountTo) {
+        this.accountTo = accountTo;
+    }
+
+    public Account getAccountFrom() {
+        return accountFrom;
+    }
+
+    public void setAccountFrom(Account accountFrom) {
+        this.accountFrom = accountFrom;
     }
 }
