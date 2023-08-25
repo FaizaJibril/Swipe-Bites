@@ -1,18 +1,16 @@
 package com.techelevator.tenmo.dao;
 
-import com.techelevator.tenmo.dao.TransferDao;
+import com.techelevator.tenmo.exception.DaoException;
+import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
-import com.techelevator.tenmo.model.Account;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import com.techelevator.tenmo.exception.DaoException;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class TransferDaoJdbc implements TransferDao {
@@ -84,6 +82,48 @@ public class TransferDaoJdbc implements TransferDao {
 ///		,ufrom.username as from_user_name
 ///		,uto.user_id as to_user_id
 ///		,uto.username as to_user_name
+
+
+    @Override
+    public Transfer getTransfersByTransferID(long TransferId){
+        Transfer transferid  = null;
+        String sql = "select\n" +
+                "\t\ttransfer_id\n" +
+                "\t\t,tt.transfer_type_desc\n" +
+                "\t\t,ts.transfer_status_desc\n" +
+                "\t\t,account_from\n" +
+                "\t\t,account_to\n" +
+                "\t\t,amount\n" +
+                "\t\t,ufrom.user_id as from_user_id\n" +
+                "\t\t,ufrom.username as from_user_name\n" +
+                "\t\t,uto.user_id as to_user_id\n" +
+                "\t\t,uto.username as to_user_name\n" +
+                "\tfrom\n" +
+                "\t\ttransfer t\n" +
+                "\t\tjoin account ato\n" +
+                "\t\t\ton ato.account_id = t.account_to\n" +
+                "\t\tjoin tenmo_user uto\n" +
+                "\t\t\ton uto.user_id = ato.user_id\n" +
+                "\t\tjoin account afrom\n" +
+                "\t\t\ton afrom.account_id = t.account_from\n" +
+                "\t\tjoin tenmo_user ufrom\n" +
+                "\t\t\ton ufrom.user_id = afrom.user_id\n" +
+                "\t\tjoin transfer_type tt\n" +
+                "\t\t\ton tt.transfer_type_id = t.transfer_type_id\t\t\n" +
+                "\t\tjoin transfer_status ts\n" +
+                "\t\t\ton ts.transfer_status_id = t.transfer_status_id\n" +
+                "\twhere\n" +
+                "\t\ttransfer_id = ?\n";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, TransferId);
+            if (results.next()) {
+                transferid = mapRowToTransfer(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return transferid;
+    }
 
     public Transfer mapRowToTransfer(SqlRowSet rowSet) {
         Transfer transfer = new Transfer();
