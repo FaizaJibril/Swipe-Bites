@@ -47,6 +47,26 @@ public class AccountDaoJdbc implements  AccountDao{
         return account;
     }
 
+    @Override
+    public Account findByUsername(String username) {
+        return null;
+    }
+
+    @Override
+    public Account findByUserId(Long userId) {
+        return null;
+    }
+
+    @Override
+    public void update(Account account) {
+
+    }
+
+    @Override
+    public void updateAccount(Account fromAccount) {
+
+    }
+
     private Account mapRowToAccount(SqlRowSet result) {
         Account account = new Account();
         account.setBalance(result.getBigDecimal("balance"));

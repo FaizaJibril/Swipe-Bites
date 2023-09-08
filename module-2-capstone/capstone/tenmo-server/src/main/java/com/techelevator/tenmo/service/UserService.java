@@ -12,4 +12,6 @@ public interface UserService {
     boolean createUser(RegisterUserDto newUser);
     List<User> getAllUsers(User user);
     User getCurrent(User user);
+
+    List<User> getAllUsers();
 }
