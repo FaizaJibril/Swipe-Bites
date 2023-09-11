@@ -82,4 +82,9 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(user.getId());
     }
 
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
 }

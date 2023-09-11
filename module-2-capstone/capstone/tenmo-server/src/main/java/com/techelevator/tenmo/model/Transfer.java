@@ -65,4 +65,13 @@ public class Transfer {
     public void setAccountFrom(Account accountFrom) {
         this.accountFrom = accountFrom;
     }
+
+//    public User getSender() {
+//        return null;
+//    }
+//
+//    public User getRecipient() {
+//        return null;
+//
+//    }
 }

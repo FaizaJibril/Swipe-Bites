@@ -30,7 +30,9 @@ private final AccountService accountService;
         User sampleUser = super.getUserFromPrincipal(principal);
         Account userAccount = accountService.getAccountByUser(sampleUser);
         //this should return the actual balance
+
         //go after the accountDao and get the whole account object back
+
         //then return account.getBalance()
         return userAccount.getBalance();
     }

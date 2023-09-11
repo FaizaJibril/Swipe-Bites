@@ -20,6 +20,7 @@ public class TransferDaoJdbc implements TransferDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
     // q4
     @Override
     public List<Transfer> getTransfersByUserId(long userId){
@@ -68,25 +69,13 @@ public class TransferDaoJdbc implements TransferDao {
 
         return transfers;
     }
-///    transfer_id
 
-//		,t.transfer_type_id
-//		,t.transfer_status_id
-//		,tt.transfer_type_desc
-//		,ts.transfer_status_desc
-//		,account_from
-//		,account_to
-
-//		,amount
-///	,ufrom.user_id as from_user_id
-///		,ufrom.username as from_user_name
-///		,uto.user_id as to_user_id
-///		,uto.username as to_user_name
+//
 
 
     @Override
-    public Transfer getTransfersByTransferID(long TransferId){
-        Transfer transfer  = null;
+    public Transfer getTransfersByTransferID(long TransferId) {
+        Transfer transfer = null;
         String sql = "select\n" +
                 "\t\ttransfer_id\n" +
                 "\t\t,tt.transfer_type_desc\n" +
@@ -116,6 +105,39 @@ public class TransferDaoJdbc implements TransferDao {
                 "\t\ttransfer_id = ?\n";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, TransferId);
+            if (results.next()) {
+                return mapRowToTransfer(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void createTransfer(Transfer transfer) {
+        String sql = "INSERT INTO transfer (transfer_id, transfer_type_Id, transfer_status_id, account_from, account_to, amount) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(
+                sql,
+                transfer.getTransferId(),
+                transfer.getTransferType(),
+                transfer.getTransferStatus(),
+                transfer.getUserFrom().getUsername(),
+                transfer.getUserTo().getUsername(),
+                transfer.getAmount()
+        );
+    }
+
+    @Override
+    public Transfer getTransferByID(long transferId) {
+        String sql = "SELECT * FROM transfer WHERE transfer_id = ?";
+        Transfer transfer = null;
+
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
             if (results.next()) {
                 transfer = mapRowToTransfer(results);
             }
