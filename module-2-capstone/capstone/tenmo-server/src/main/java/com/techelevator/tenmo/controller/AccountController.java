@@ -1,10 +1,16 @@
 package com.techelevator.tenmo.controller;
 
+<<<<<<< HEAD
 //import com.techelevator.tenmo.dao.AccountDao;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.service.Transfer;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
+=======
+import com.techelevator.tenmo.model.Account;
+import com.techelevator.tenmo.model.User;
+import com.techelevator.tenmo.service.AccountService;
+>>>>>>> d645abbeb427ebe51e59560809a0eabfa7d908ae
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +26,11 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/account")
 public class AccountController extends BaseController {
+private final AccountService accountService;
+
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     //private final AccountDao accountDAO;
 
@@ -28,10 +39,16 @@ public class AccountController extends BaseController {
     @RequestMapping(path="/balance", method = RequestMethod.GET)
     public BigDecimal getAccountList(Principal principal){
         User sampleUser = super.getUserFromPrincipal(principal);
+        Account userAccount = accountService.getAccountByUser(sampleUser);
         //this should return the actual balance
-        return BigDecimal.valueOf(999.99d);
+
+        //go after the accountDao and get the whole account object back
+
+        //then return account.getBalance()
+        return userAccount.getBalance();
     }
 
+<<<<<<< HEAD
 
        private final TransferService transferService; // You'll need a TransferService to manage transfers
 
@@ -94,6 +111,8 @@ public class AccountController extends BaseController {
     }
     /*
  */
+=======
+>>>>>>> d645abbeb427ebe51e59560809a0eabfa7d908ae
 }
 
 

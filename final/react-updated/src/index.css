@@ -5,6 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./images/shayda-torabi-3iexvMShGfQ-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  background-size: cover;
+}
+
+video{
+  /* This is the HTML video tag */
+}
+
+.video-container {
+/* This is the className for the wrapper around the video */
 }
 
 code {
