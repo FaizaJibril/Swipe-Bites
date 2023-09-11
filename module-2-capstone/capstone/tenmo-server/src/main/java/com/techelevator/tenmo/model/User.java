@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Objects;
@@ -21,13 +22,14 @@ public class User {
    @JsonIgnore
    private Set<Authority> authorities = new HashSet<>();
 
-   public User() { }
+   public User() {
+   }
 
    public User(long id, String username, String password, String authorities) {
       this.id = id;
       this.username = username;
       this.password = password;
-      if(authorities != null) this.setAuthorities(authorities);
+      if (authorities != null) this.setAuthorities(authorities);
       this.activated = true;
    }
 
@@ -62,6 +64,7 @@ public class User {
    public void setPassword(String password) {
       this.password = password;
    }
+
    public boolean isActivated() {
       return activated;
    }
@@ -78,18 +81,19 @@ public class User {
       this.authorities = authorities;
    }
 
-   public static User valueOf(Principal principal){
+   public static User valueOf(Principal principal) {
       UserDetail userDetail = (UserDetail) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
       StringBuilder builder = new StringBuilder();
-      for (GrantedAuthority a: userDetail.getAuthorities()){
+      for (GrantedAuthority a : userDetail.getAuthorities()) {
          builder.append(a.getAuthority()).append(",");
       }
       String auths = builder.toString();
       return new User(userDetail.getId(), userDetail.getUsername(), userDetail.getPassword(), auths);
    }
+
    public void setAuthorities(String authorities) {
       String[] roles = authorities.split(",");
-      for(String role : roles) {
+      for (String role : roles) {
          this.authorities.add(new Authority("ROLE_" + role));
       }
    }
@@ -117,4 +121,8 @@ public class User {
               '}';
    }
 
+   public BigDecimal getBalance() {
+      return getBalance();
+
+   }
 }
