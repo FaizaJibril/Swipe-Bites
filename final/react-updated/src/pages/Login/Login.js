@@ -2,14 +2,19 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { UserContext } from '../../context/UserContext';
 import { loginUser, registerUser } from '../../api/AuthService';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const { setCurrentUser } = useContext(UserContext);
   const [username, setUsername] = useState('');
+  const [fullname, setFullname] = useState('');
   const [password, setPassword] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+  };
+  const handleFullnameChange = (event) => {
+    setFullname(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -30,7 +35,7 @@ const Login = () => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
-    const userRegister = { username, password };
+    const userRegister = { username, password,  fullname};
     await registerUser(userRegister);
     await handleLogin(event);
   };
@@ -40,13 +45,13 @@ const Login = () => {
       <Row className="justify-content-center">
         <Col xs={12} sm={8} md={6}>
           <div className="text-center mb-4">
-            
+            <h1 className= "h3 mb-3 font-weight-normal">Swipe Right for Flavour Delight!</h1>
           </div>
           <Form onSubmit={handleLogin}>
             <Form.Group controlId="formBasicEmail">
               <Form.Control
                 type="email"
-                placeholder="Email address or phone number"
+                placeholder="Email address "
                 value={username}
                 onChange={handleUsernameChange}
                 required
@@ -73,12 +78,16 @@ const Login = () => {
           </Form>
 
           <hr />
+         
 
-          <div className="text-center">
-            <Button variant="success" type="button" block onClick={handleRegister}>
-              Create New Account
-            </Button>
-          </div>
+
+                            <div className="text-center">
+                            <Link to="/Register">
+                                <Button variant="success" type="button" block>
+                                Create New Account
+                                </Button>
+                            </Link>
+                            </div>
         </Col>
       </Row>
     </Container>

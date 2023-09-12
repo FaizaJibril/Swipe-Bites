@@ -2,6 +2,7 @@ import { UserProvider } from './context/UserContext';
 import ErrorBoundary from './ErrorBoundary';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
+import Register from './pages/Register/Register';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 const MyApp = () => {  
@@ -15,6 +16,7 @@ const MyApp = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Login" element={<Login />} />
+              <Route path="/Register" element={<Register />} />
             </Routes>
           </BrowserRouter>
         </UserProvider>
