@@ -1,2 +1,2 @@
-ALTER TABLE restaurant
-RENAME COLUMN reviews to description;
+ALTER TABLE user_profile
+RENAME COLUMN user_name to username;
