@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { UserContext } from '../../context/UserContext';
 import { loginUser, registerUser } from '../../api/AuthService';
 import { Link } from 'react-router-dom';
+import "./Register.css"
 
 const Register = () => {
     const { setCurrentUser } = useContext(UserContext);
@@ -62,7 +63,7 @@ const Register = () => {
         <Row className="justify-content-center">
           <Col xs={12} sm={8} md={6}>
             <div className="text-center mb-4">
-            <h1 className= "h3 mb-3 font-weight-normal">Sign Up</h1>
+            <h1 className= "h3 mb-3 font-weight-normal sign-up">Sign Up</h1>
             </div>
             <Form onSubmit={handleRegister}>
 
@@ -98,7 +99,7 @@ const Register = () => {
                   
 
     
-              <Button variant="primary" type="submit" block>
+              <Button className="primary-button" type="submit" block>
                 Register
               </Button>
 
@@ -108,7 +109,7 @@ const Register = () => {
     
             <div className="text-center">
                             <Link to="/">
-                                <Button variant="success" type="button" block>
+                                <Button className="secondary-button" type="submit" block>
                                 Already have an account?
                                 </Button>
                             </Link>

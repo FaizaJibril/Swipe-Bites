@@ -1,0 +1,49 @@
+.text-center {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+.primary-button {
+    background-color: #ebdb03; 
+    color: rgb(12, 12, 11);
+    font-size: 20px; 
+
+    &:hover {
+        background-color: rgb(12, 12, 11); 
+      }
+    }
+  
+  .secondary-button {
+    background-color: #000000;
+    color: #fff; 
+    font-size: 16px; 
+
+    &:hover {
+        background-color:  #fff; 
+        color:  #000000;
+      }
+  }
+.welcome-heading {
+    font-size: 25px;
+    color: ivory;
+}
+
+.login-heading {
+    font-size: 18px;
+    color: #fafafa
+}
+
+.form-label {
+    font-size: 20px; /* Font size for form labels */
+  }
+  
+  .form-control {
+    font-size: 20px; /* Font size for form input fields */
+  }
+  
+  /* Add custom styles for form elements if needed */
+  /* For example, you can style links here */
+  a {
+    font-size: 14px;
+    color: #fafafa
+}

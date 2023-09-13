@@ -9,7 +9,7 @@ body {
 
 body::before {
   content:'';
-  background: url("./images/background-image.png") no-repeat center center;
+  background: url("./images/360_F_445731650_wF48Hjvi9DDn1Kz6bMjgGbrVYDmWvTeG.png") no-repeat center center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -36,9 +36,10 @@ code {
     monospace;
 }
 .login-box {
-  background-color: rgba(255, 255, 255, 0.5); /* Optional background color */
-  padding: 20px; /* Add padding to the login box */
+ 
+  padding: 50px; /* Add padding to the login box */
   max-width: 800px; /* Set the maximum width to your desired value */
+  max-height: 2000px;
   margin: 0 auto; /* Center the login box horizontally */
 }
 .logo-container {
