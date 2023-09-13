@@ -1,0 +1,25 @@
+.sign-up {
+    font-size: 25px;
+    color: ivory;
+}
+
+.primary-button {
+    background-color: #ebdb03; 
+    color: rgb(12, 12, 11);
+    font-size: 20px; 
+
+    &:hover {
+        background-color: rgb(12, 12, 11); 
+      }
+    }
+  
+  .secondary-button {
+    background-color: #000000;
+    color: #fff; 
+    font-size: 16px; 
+
+    &:hover {
+        background-color:  #fff; 
+        color:  #000000;
+      }
+  }
