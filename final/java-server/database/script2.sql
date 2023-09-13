@@ -74,3 +74,5 @@ CREATE TABLE IF NOT EXISTS public.user_restaurant_match
 	FOREIGN KEY (restaurant_id) REFERENCES Restaurant(restaurant_id)
 	
 );
+
+
