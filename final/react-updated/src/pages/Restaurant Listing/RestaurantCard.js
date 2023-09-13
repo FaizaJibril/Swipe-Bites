@@ -1,29 +1,43 @@
-import React from 'react';
-//import StarRating from './StarRating';
 import "./RestaurantCard.css";
-//import { FaUtensils, FaMapMarker, FaPhone } from 'react-icons/fa';
+import React from 'react';
+import { useSwipeable } from 'react-swipeable';
 
-
-const dummyData = [
-  { id: 1, name: 'Restaurant 1', description: 'A great place to eat.' },
-  { id: 2, name: 'Restaurant 2', description: 'Delicious food in a cozy atmosphere.' },
-  { id: 3, name: 'Restaurant 3', description: 'Experience the finest dining.' },
-];
-
-const Restaurant = () => {
-  return (
-    <div>
-      <h1>Restaurant List</h1>
-      <ul>
-        {dummyData.map((restaurant) => (
-          <li key={restaurant.id}>
-            {restaurant.name} - {restaurant.description}
-            {/* Add more restaurant details here */}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+const dummyData = {
+  name: 'Sample Restaurant',
+  description: 'A cozy place to enjoy delicious food.',
+  location: '123 Main Street, City',
+  price: '$$',
+  picture: 'https://via.placeholder.com/150', // Placeholder image URL
 };
 
-export default Restaurant;
+function RestaurantCard({ restaurant }) {
+  const { name, description, location, price, picture } = restaurant || dummyData;
+
+  // Define swipe handlers
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      // Handle left swipe (e.g., dislike the restaurant)
+      console.log(`Swiped left on ${name}`);
+    },
+    onSwipedRight: () => {
+      // Handle right swipe (e.g., like the restaurant)
+      console.log(`Swiped right on ${name}`);
+    },
+    // You can add more swipe event handlers as needed
+  });
+
+  return (
+    <div className="restaurant-card" {...handlers}>
+      <img src={picture} alt={`Image of ${name}`} />
+      <div className="restaurant-details">
+        <h2>{name}</h2>
+        <p>{description}</p>
+        <p>Location: {location}</p>
+        <p>Price: {price}</p>
+      </div>
+    </div>
+  );
+}
+
+export default RestaurantCard;
+
