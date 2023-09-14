@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Preference from './pages/Preference/Preference'
 import Register from './pages/Register/Register';
+import Header from './components/ui/Header';
 import RestaurantCard from "./pages/Restaurant Listing/RestaurantCard"; // Correctly import the RestaurantCard component
 import './App.css';
 
@@ -27,6 +28,7 @@ const MyApp = () => {
       <ErrorBoundary fallback={<p>Something went wrong</p>}>
         <UserProvider>
           <BrowserRouter>
+          <Header />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
