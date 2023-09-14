@@ -1,0 +1,78 @@
+/* Preference.css */
+
+.container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .headerText {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .cuisineContainer {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+  }
+  
+  .cardContainer {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    margin-right: 20px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .cardContainer.selected {
+    border: 2px solid #007bff;
+  }
+  
+  .cardImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .cuisineName {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .selectedText {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .nextButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .nextButton:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Custom styles for swipeable behavior (optional) */
+  .swiping-left {
+    transform: translateX(-10px);
+  }
+  
+  .swiping-right {
+    transform: translateX(10px);
+  }
+  

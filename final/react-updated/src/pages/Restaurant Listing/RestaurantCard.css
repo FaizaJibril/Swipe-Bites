@@ -1,48 +1,115 @@
+/* restaurant.css */
+/* RestaurantCard.css */
+.restaurant-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 25px;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 1; /* Adjust this value for the stacking order */
+}
+
+/* Stack cards vertically */
+.restaurant-card + .restaurant-card {
+  margin-top: -16px; /* Overlap cards by adjusting the margin */
+  z-index: 0; /* Lower stacking order */
+  transform: translateY(-8px); /* Translate cards up */
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+  max-height: 100vh;
+}
 
 
-/* Container styles */
-.RestaurantCard {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin: 16px;
-    transition: transform 0.3s ease-in-out;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Hover effect for swipe feedback */
-  .RestaurantCard:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Title styles */
-  .RestaurantCard h3 {
-    font-size: 24px;
-    margin-bottom: 8px;
-    color: #333;
-  }
-  
-  /* Description styles */
-  .RestaurantCard p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 16px;
-  }
-  
-  /* Swipe direction styles */
-  .RestaurantCard.left {
-    transform: translateX(-100%) rotate(-10deg);
-    opacity: 0.7;
-  }
-  
-  RestaurantCard.right {
-    transform: translateX(100%) rotate(10deg);
-    opacity: 0.7;
-  }
-  
-  /* Custom styling for other restaurant details */
-  /* Add more styles for additional details if needed */
+.card-stack-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.RestaurantCardContents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.image-reduced-height {
+  max-width: 100%; /* Limit the maximum width */
+  max-height: 100%; /* Limit the maximum height */
+  width: auto; /* Automatically adjust the width while preserving aspect ratio */
+}
+
+.restaurant-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px; /* Increase the padding value as needed */
+  margin: 25px;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+/* Title styles */
+.RestaurantCard h3 {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #333;
+}
+.description-text {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 16px;
+  /* Ensure that text overflows with ellipsis */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Limit the number of lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Style for the "Read More" button as plain text */
+.expand-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.expand-button:hover {
+  color: #0056b3;
+}
+/* Style for expanded text when the button is clicked */
+.expandable-text.expanded {
+  /* Show all text when expanded */
+  display: block;
+  max-height: none;
+}
+
+/* Style for "Read Less" button when text is expanded */
+.expandable-text.expanded + .expand-button {
+  display: inline; /* Display "Read Less" button when text is expanded */
+}
+
+.description-text.expanded {
+  -webkit-line-clamp: 20;
+}
   
