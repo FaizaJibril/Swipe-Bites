@@ -13,12 +13,15 @@ public class User {
    private String email;
    @JsonIgnore // prevent from being sent to client
    private String password;
+   private String preferences;
    @JsonIgnore
    private boolean activated;
    @JsonIgnore
    private Set<Authority> authorities = new HashSet<>();
 
+
    public User() { }
+
 
    public User(long id, String username, String password, String authorities) {
       this.id = id;
@@ -26,6 +29,16 @@ public class User {
       this.password = password;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+      this.preferences = preferences;
+
+   }
+
+   public String getPreferences() {
+      return preferences;
+   }
+
+   public void setPreferences(String preferences) {
+      this.preferences = preferences;
    }
 
    public long getId() {

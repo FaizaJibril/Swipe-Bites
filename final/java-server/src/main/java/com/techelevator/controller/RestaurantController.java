@@ -60,4 +60,13 @@ public class RestaurantController extends BaseController{
         User user = super.getUserFromPrincipal(principal);
     }
 
+    @GetMapping("/by-user-preference/{username}")
+    public List<String> getRestaurantNamesByUserPreference(@PathVariable String username) {
+        return restaurantDao.getRestaurantNamesByUserPreference(username);
+    }
+
+
+
 }
+
+

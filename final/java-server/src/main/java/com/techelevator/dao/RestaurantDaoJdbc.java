@@ -60,8 +60,18 @@ public class RestaurantDaoJdbc implements RestaurantDao{
     public void deleteRestaurant(int id) {
         String sql = "DELETE FROM restaurant WHERE id = ?";
         jdbcTemplate.update(sql, id);
+    }
+    @Override
+    public List<String> getRestaurantNamesByUserPreference(String username) {
+        String sql = "SELECT r.name FROM restaurant r JOIN app_users u ON r.cuisine = u.preferences WHERE u.username = ?";
+        return jdbcTemplate.queryForList(sql, String.class, username);
+    }
+
+    @Override
+    public void insertPreference(String preferences) {
 
     }
+
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(rowSet.getInt("restaurant_id"));
