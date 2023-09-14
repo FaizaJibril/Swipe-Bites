@@ -126,4 +126,17 @@ public class UserDaoJdbc implements UserDao {
         return user;
     }
 
+    @Override
+    public void insertPreferences(String username, String preferences) {
+        String sql = "UPDATE app_users SET preferences = ? WHERE username = ?";
+        jdbcTemplate.update(sql, preferences, username);
+    }
+
+    @Override
+    public void insertFullName(String username, String fullName) {
+        String sql = "UPDATE app_users SET full_name = ? WHERE username = ?";
+        jdbcTemplate.update(sql, fullName, username);
+    }
+
+
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequestMapping("/user")
 @CrossOrigin
-public class UserController {
+public class UserController extends BaseController{
 
     private final UserDao userDao;
 
@@ -31,6 +31,8 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody User user) {
+        user.setFullName(user.getFullName());
+        user.setPreferences(user.getPreferences());
         userDao.createUser(user);
     }
 
