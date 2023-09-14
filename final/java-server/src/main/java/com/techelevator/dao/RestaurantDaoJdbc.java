@@ -56,20 +56,38 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
     }
 
+
     @Override
     public void deleteRestaurant(int id) {
         String sql = "DELETE FROM restaurant WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
-    @Override
-    public List<String> getRestaurantNamesByUserPreference(String username) {
-        String sql = "SELECT r.name FROM restaurant r JOIN app_users u ON r.cuisine = u.preferences WHERE u.username = ?";
-        return jdbcTemplate.queryForList(sql, String.class, username);
-    }
+
 
     @Override
     public void insertPreference(String preferences) {
 
+    }
+
+
+    //instead of fetching user prefernces from table, pass it into the front end, line 87-88 cusine prefernce passed in
+
+    public List<Restaurant> getRecommendedRestaurantsByCuisine(long userId) {
+        List<Restaurant> recommendedRestaurants = new ArrayList<>();
+
+        // get the user's cuisine preference from the app_users table
+        String cuisinePreferenceSql = "SELECT preferences FROM app_users WHERE user_id = ?";
+        String cuisinePreference = jdbcTemplate.queryForObject(cuisinePreferenceSql, String.class, userId);
+
+        // retrieve restaurants that match the user's cuisine preference
+        String sql = "SELECT * FROM restaurant WHERE cuisine = ?";
+        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(sql, cuisinePreference);
+
+        while (resultSet.next()) {
+            recommendedRestaurants.add(mapRowToRestaurant(resultSet));
+        }
+
+        return recommendedRestaurants;
     }
 
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {

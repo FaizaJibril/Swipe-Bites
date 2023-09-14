@@ -14,4 +14,7 @@ public interface RestaurantDao {
     List<String> getRestaurantNamesByUserPreference(String username);
 
     void insertPreference(String preferences);
+
+    List<Restaurant> getRestaurantNamesByUserPreference();
+
 }

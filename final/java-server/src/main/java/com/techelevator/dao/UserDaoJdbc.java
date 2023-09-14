@@ -42,7 +42,7 @@ public class UserDaoJdbc implements UserDao {
         String sql = "select user_id, username, password_hash from app_users where user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()) {
-            return mapRowToUser(results,true, "");
+            return mapRowToUser(results, true, "");
         } else {
             return null;
         }
@@ -55,7 +55,7 @@ public class UserDaoJdbc implements UserDao {
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
-            User user = mapRowToUser(results,true, "");
+            User user = mapRowToUser(results, true, "");
             users.add(user);
         }
 
@@ -69,7 +69,7 @@ public class UserDaoJdbc implements UserDao {
         String sql = "select user_id, username, password_hash from app_users where username = ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
         if (rowSet.next()) {
-            return mapRowToUser(rowSet,true, "");
+            return mapRowToUser(rowSet, true, "");
         }
         throw new UsernameNotFoundException("User " + username + " was not found.");
     }
@@ -105,5 +105,14 @@ public class UserDaoJdbc implements UserDao {
         user.setAuthorities("USER");
         return user;
     }
-
 }
+
+    //a list of string, query for row set and then do a while next and add to a list of strings
+
+     /*public String getUserCuisinePreference(long userId) {
+        String sql = "SELECT preferences FROM app_users WHERE user_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{userId}, String.class);
+    }
+}
+
+
