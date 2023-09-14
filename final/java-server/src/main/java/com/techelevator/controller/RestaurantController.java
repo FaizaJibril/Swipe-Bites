@@ -2,15 +2,18 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.RestaurantDao;
 import com.techelevator.model.Restaurant;
+import com.techelevator.model.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/restaurant")
 @CrossOrigin
-public class RestaurantController {
+public class RestaurantController extends BaseController{
     private final RestaurantDao restaurantDao;
 
     public RestaurantController(RestaurantDao restaurantDao) {
@@ -44,6 +47,17 @@ public class RestaurantController {
     @DeleteMapping("/{id}")
     public void deleteRestaurant(@PathVariable int id) {
         restaurantDao.deleteRestaurant(id);
+    }
+
+    @GetMapping("/{id}/like")
+    @PreAuthorize("isAuthenticated()")
+    public void likedRestaurant(@PathVariable int id, Principal principal) {
+        User user = super.getUserFromPrincipal(principal);
+    }
+    @GetMapping("/{id}/disLiked")
+    @PreAuthorize("isAuthenticated()")
+    public void disLikedRestaurant(@PathVariable int id, Principal principal) {
+        User user = super.getUserFromPrincipal(principal);
     }
 
 }
