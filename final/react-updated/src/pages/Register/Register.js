@@ -10,6 +10,7 @@ const Register = () => {
     const [fullname, setFullname] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [preference, setPreference] = useState('');
     
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -20,6 +21,9 @@ const Register = () => {
       };
       const handleFullnameChange = (event) => {
         setFullname(event.target.value);
+      };
+      const handlePreferenceChange = (event) => {
+        setPreference(event.target.value);
       };
       const handleLogin = async (event) => {
         event.preventDefault();
@@ -35,7 +39,7 @@ const Register = () => {
     
       const handleRegister = async (event) => {
         event.preventDefault();
-        const userRegister = { username, password, fullname};
+        const userRegister = { username, password, fullname,preference};
         await registerUser(userRegister);
         await handleLogin(event);
       };
@@ -96,7 +100,24 @@ const Register = () => {
                 />
               </Form.Group>
 
-                  
+              <Form.Group controlId="formBasicPreference">
+              <Form.Control
+                    className="grey-text"
+                        as="select"
+                        name="cuisine"
+                        value={preference}
+                        onChange={handlePreferenceChange}
+                    >
+                            <option value="" disabled hidden>
+                                    Select Cuisine
+                                    </option>
+                        <option value="italian">Italian</option>
+                        <option value="mexican">Mexican</option>
+                        <option value="indian">Indian</option>
+                        
+
+                    </Form.Control>
+                    </Form.Group>    
 
     
               <Button className="primary-button" type="submit" block>

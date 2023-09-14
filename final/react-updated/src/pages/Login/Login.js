@@ -2,26 +2,29 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { UserContext } from '../../context/UserContext';
 import { loginUser, registerUser } from '../../api/AuthService';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./Login.css"
 
 const Login = () => {
   const { setCurrentUser } = useContext(UserContext);
-  const [username, setUsername] = useState('');
-  const [fullname, setFullname] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-  const handleFullnameChange = (event) => {
-    setFullname(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
+    const [fullname, setFullname] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [preference, setPreference] = useState('');
+    
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value);
+      };
+    
+      const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+      };
+      const handleFullnameChange = (event) => {
+        setFullname(event.target.value);
+      };
+      const handlePreferenceChange = (event) => {
+        setPreference(event.target.value);
+      };
   const handleLogin = async (event) => {
     event.preventDefault();
     const userLogin = { username, password };
@@ -36,7 +39,7 @@ const Login = () => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
-    const userRegister = { username, password,  fullname};
+    const userRegister = { username, password,  fullname,preference};
     await registerUser(userRegister);
     await handleLogin(event);
   };
@@ -70,10 +73,11 @@ const Login = () => {
               />
             </Form.Group>
 
-            <Button className="primary-button" type="submit" block>
-              Log In
-            </Button>
-
+            <Link to="/Preference">
+                <Button className="primary-button" type="submit" block>
+                    Log In
+                </Button>
+           </Link>
             <div className="text-center mt-3 forgot-password">
               <a href="#">Forgot Password?</a>
             </div>
