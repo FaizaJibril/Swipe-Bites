@@ -1,50 +1,85 @@
-import React, { useState } from 'react';
-import { useSwipeable } from 'react-swipeable';
-import Card from 'react-bootstrap/Card';
+import React, { useState, useContext } from 'react';
+import { Container, Button } from 'react-bootstrap';
 import { UserContext } from '../../context/UserContext';
-import { loginUser, registerUser } from '../../api/AuthService';
-import { Link, useHistory } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable'; // Import react-swipeable
+import './Preference.css'; // Import the CSS file
 
-const Login = () => {
-    const { setCurrentUser } = useContext(UserContext);
-    const [fullname, setFullname] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [preference, setPreference] = useState('');
-    
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-      };
-    
-      const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-      };
-      const handleFullnameChange = (event) => {
-        setFullname(event.target.value);
-      };
-      const handlePreferenceChange = (event) => {
-        setPreference(event.target.value);
-      };
-    const handleLogin = async (event) => {
-    event.preventDefault();
-    const userLogin = { username, password };
-    const loggedInUser = await loginUser(userLogin);
-    if (loggedInUser) {
-      loggedInUser.user.isAuthenticated = true;
-      localStorage.setItem('user', JSON.stringify(loggedInUser.user));
-      localStorage.setItem('token', loggedInUser.token);
-      setCurrentUser(loggedInUser.user);
-      history.push('/Preference');
+const cuisines = [
+  {
+    id: '1',
+    name: 'Italian',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    id: '2',
+    name: 'Mexican',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    id: '3',
+    name: 'Indian',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    id: '4',
+    name: 'American',
+    image: 'https://via.placeholder.com/150',
+  },
+  // Add more cuisines as needed
+];
+
+function Preference() {
+  const { currentUser, updateUserPreferences } = useContext(UserContext);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Define swipe handlers
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      // Handle left swipe (if needed)
+      if (currentIndex < cuisines.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+      }
+    },
+    onSwipedRight: () => {
+      // Handle right swipe (if needed)
+      if (currentIndex > 0) {
+        setCurrentIndex(currentIndex - 1);
+      }
+    },
+  });
+
+  const handlePreferenceSelection = (cuisineId) => {
+    updateUserPreferences(cuisineId);
+    // Move to the next card on selection (if needed)
+    if (currentIndex < cuisines.length - 1) {
+      setCurrentIndex(currentIndex + 1);
     }
-    
-
   };
-};
-  const MoodSelection = () => {
-    const [mood, setMood] = useState('');
-    const [cuisine, setCuisine] = useState(''); // Get the cuisine value from the previous step
-  
-    const handleMoodChange = (event) => {
-      setMood(event.target.value);
-    };
-};
+
+  return (
+    <div className="container" {...handlers}>
+      <h1>Welcome There!</h1>
+      <p className="headerText">Swipe to Select Your Cuisine</p>
+      <div className="cuisineContainer">
+        {cuisines.map((cuisine, index) => (
+          <div
+            key={cuisine.id}
+            className={`cardContainer ${
+              currentIndex === index ? 'selected' : ''
+            }`}
+            onClick={() => handlePreferenceSelection(cuisine.id)}
+          >
+            <img className="cardImage" src={cuisine.image} alt={cuisine.name} />
+            <p className="cuisineName">{cuisine.name}</p>
+            {currentIndex === index && <p className="selectedText">Selected</p>}
+          </div>
+        ))}
+      </div>
+      {currentIndex === cuisines.length - 1 && (
+        <button className="nextButton">Next</button>
+      )}
+    </div>
+  );
+}
+
+export default Preference;
