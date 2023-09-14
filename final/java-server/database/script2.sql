@@ -1,3 +1,7 @@
+rollback;
+
+drop table if exists app_users,restaurant, disliked_restaurants, images, liked_restaurants, match_history, user_restaurant_match cascade;
+
 CREATE TABLE IF NOT EXISTS public.app_users
 (
     user_id serial NOT NULL,
