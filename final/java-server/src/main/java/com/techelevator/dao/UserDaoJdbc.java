@@ -88,6 +88,26 @@ public class UserDaoJdbc implements UserDao {
         return true;
     }
 
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public void createUser(User user) {
+
+    }
+
+    @Override
+    public void updateUser(User user) {
+
+    }
+
+    @Override
+    public void deleteUser(int id) {
+
+    }
+
 
     private static User mapRowToUser(SqlRowSet rs, boolean includePassword, String ending) {
         User user = new User();
