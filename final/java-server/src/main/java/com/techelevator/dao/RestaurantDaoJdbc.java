@@ -40,6 +40,17 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         }
         return null;
     }
+    @Override
+    public Restaurant getRestaurantCuisine(String cuisine) {
+        String sql = "SELECT * FROM restaurant WHERE cuisine = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, cuisine);
+        if (result.next()) {
+            return mapRowToRestaurant(result);
+
+        }
+        return null;
+    }
+
 
     @Override
     public void createRestaurant(Restaurant restaurant) {

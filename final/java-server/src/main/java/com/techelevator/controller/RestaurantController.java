@@ -33,6 +33,10 @@ public class RestaurantController extends BaseController{
     public Restaurant getAllRestaurantById(@PathVariable int id) {
         return restaurantDao.getRestaurantById(id);
     }
+    @GetMapping("/{cuisine}")
+    public Restaurant getRestaurantCuisine(@PathVariable String cuisine) {
+        return restaurantDao.getRestaurantCuisine(cuisine);
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createRestaurant(@RequestBody Restaurant restaurant) {
