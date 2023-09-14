@@ -13,6 +13,8 @@ const Header = () => {
   const userContext = useContext(UserContext);
   const currentUser = userContext.currentUser;
 
+  console.log(currentUser);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,10 +37,10 @@ const Header = () => {
                   <Nav className="justify-content-center">
                     <NavDropdown title="Drop Down" id="basic-nav-dropdown">
                       <LinkContainer to="/nonexistant">
-                        <NavDropdown.Item>Some Menu</NavDropdown.Item>
+                        <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/nonexistant">
-                        <NavDropdown.Item>Some Other Menu</NavDropdown.Item>
+                        <NavDropdown.Item>Account settings</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
