@@ -9,13 +9,13 @@ import javax.validation.constraints.NotEmpty;
  */
 public class RegisterUserDto {
 
-    @NotEmpty
+    @NotEmpty(message = "Username must not be empty")
     private String username;
-    @NotEmpty
+    @NotEmpty(message = "Full name must not be empty")
     private String password;
-    @NotEmpty
+    @NotEmpty(message = "Password must not be empty")
     private String fullName;
-    @NotEmpty
+    @NotEmpty(message = "Preferences must not be empty")
     private String preferences;
 
     public String getFullName() {
