@@ -44,6 +44,16 @@ const MyApp = () => {
                   />
                 }
               />
+              <Route
+                path="/restaurant/:cuisine"
+                element={
+                  <RestaurantCard
+                    restaurant={restaurants[0]} // Pass the restaurant data
+                    onSwipeLeft={handleSwipeLeft}
+                    onSwipeRight={handleSwipeRight}
+                  />
+                }
+              />
             </Routes>
           </BrowserRouter>
         </UserProvider>
