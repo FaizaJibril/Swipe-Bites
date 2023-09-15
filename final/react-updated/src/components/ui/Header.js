@@ -37,11 +37,8 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="justify-content-center">
                     <NavDropdown title="Menu" id="basic-nav-dropdown" className="custom-dropdown">
-                      <LinkContainer to="/nonexistant">
+                      <LinkContainer to="/UserProfile">
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/nonexistant">
-                        <NavDropdown.Item>Account settings</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
