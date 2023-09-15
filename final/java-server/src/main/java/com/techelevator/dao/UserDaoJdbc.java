@@ -129,13 +129,13 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public void insertPreferences(String username, String preferences) {
-        String sql = "INSERT INTO app_users (username, preferences) VALUES (?, ?)";
+        String sql = "INSERT INTO app_users (username, preferences) VALUES (?, ?) returning preferences";
         jdbcTemplate.update(sql, username, preferences);
     }
 
     @Override
     public void insertFullName(String username, String fullName) {
-        String sql = "INSERT INTO app_users (username, full_name) VALUES (?, ?)";
+        String sql = "INSERT INTO app_users (username, full_name) VALUES (?, ?) returning fullName";
         jdbcTemplate.update(sql, username, fullName);
     }
 

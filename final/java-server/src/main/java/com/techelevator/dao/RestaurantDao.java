@@ -8,7 +8,7 @@ public interface RestaurantDao {
     List<Restaurant> getAllRestaurant();
     Restaurant getRestaurantById(int id);
 
-    Restaurant getRestaurantCuisine(String cuisine);
+    List<Restaurant> getRestaurantCuisine(String cuisine);
 
     void createRestaurant(Restaurant restaurant);
     void updateRestaurant(Restaurant restaurant);
