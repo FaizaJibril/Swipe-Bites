@@ -17,6 +17,7 @@ public interface UserDao {
     boolean create(String username, String password);
 
 
+
     List<User> getAllUsers();
 
     void createUser(User user);
@@ -24,5 +25,8 @@ public interface UserDao {
     void updateUser(User user);
 
     void deleteUser(int id);
-    
+
+    void insertPreferences(String username, String preferences);
+    void insertFullName(String username, String fullName);
+
 }

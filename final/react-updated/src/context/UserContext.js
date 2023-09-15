@@ -20,6 +20,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
+    setCurrentUser(null);
     localStorage.removeItem('user');
   };
 

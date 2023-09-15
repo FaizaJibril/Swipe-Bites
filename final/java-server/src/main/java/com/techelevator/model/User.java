@@ -14,6 +14,7 @@ public class User {
    @JsonIgnore // prevent from being sent to client
    private String password;
    private String preferences;
+   private String fullName;
    @JsonIgnore
    private boolean activated;
    @JsonIgnore
@@ -23,6 +24,10 @@ public class User {
    public User() { }
 
 
+   public User(String fullName) {
+      this.fullName = fullName;
+   }
+
    public User(long id, String username, String password, String authorities) {
       this.id = id;
       this.username = username;
@@ -31,6 +36,14 @@ public class User {
       this.activated = true;
       this.preferences = preferences;
 
+   }
+
+   public String getFullName() {
+      return fullName;
+   }
+
+   public void setFullName(String fullName) {
+      this.fullName = fullName;
    }
 
    public String getPreferences() {

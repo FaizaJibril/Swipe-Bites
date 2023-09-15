@@ -125,6 +125,22 @@ public class UserDaoJdbc implements UserDao {
         user.setAuthorities("USER");
         return user;
     }
+
+
+    @Override
+    public void insertPreferences(String username, String preferences) {
+        String sql = "UPDATE app_users SET preferences = ? WHERE username = ?";
+        jdbcTemplate.update(sql, preferences, username);
+    }
+
+    @Override
+    public void insertFullName(String username, String fullName) {
+        String sql = "UPDATE app_users SET full_name = ? WHERE username = ?";
+        jdbcTemplate.update(sql, fullName, username);
+    }
+
+
+
 }
 
     //a list of string, query for row set and then do a while next and add to a list of strings
