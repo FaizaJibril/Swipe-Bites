@@ -16,6 +16,12 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Override
+    public List<String> getRestaurantNamesByUserPreference(String username) {
+        String sql = "SELECT r.name FROM restaurant r JOIN app_users u ON r.cuisine = u.preferences WHERE u.username = ?";
+        return jdbcTemplate.queryForList(sql, String.class, username);
+    }
+
 
     @Override
     public List<Restaurant> getAllRestaurant() {
@@ -70,7 +76,7 @@ public class RestaurantDaoJdbc implements RestaurantDao{
     }
 
 
-    //instead of fetching user prefernces from table, pass it into the front end, line 87-88 cusine prefernce passed in
+    //pass it into the front end, line 87-88 cusine preference passed in
 
     public List<Restaurant> getRecommendedRestaurantsByCuisine(long userId) {
         List<Restaurant> recommendedRestaurants = new ArrayList<>();
@@ -89,6 +95,45 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
         return recommendedRestaurants;
     }
+
+
+    public List<Restaurant> getLikedRestaurantsByUserId(long userId) {
+        List<Restaurant> likedRestaurants = new ArrayList<>();
+
+        String likedRestaurantIdsSql = "SELECT restaurant_id FROM liked_restaurants WHERE user_id = ?";
+        List<Integer> likedRestaurantIds = jdbcTemplate.queryForList(likedRestaurantIdsSql, Integer.class, userId);
+
+
+        for (Integer restaurantId : likedRestaurantIds) {
+            String restaurantSql = "SELECT * FROM restaurant WHERE id = ?";
+            SqlRowSet resultSet = jdbcTemplate.queryForRowSet(restaurantSql, restaurantId);
+            if (resultSet.next()) {
+                likedRestaurants.add(mapRowToRestaurant(resultSet));
+            }
+        }
+
+        return likedRestaurants;
+    }
+
+    public List<Restaurant> getDislikedRestaurantsByUserId(long userId) {
+        List<Restaurant> dislikedRestaurants = new ArrayList<>();
+
+        String dislikedRestaurantIdsSql = "SELECT restaurant_id FROM disliked_restaurants WHERE user_id = ?";
+        List<Integer> dislikedRestaurantIds = jdbcTemplate.queryForList(dislikedRestaurantIdsSql, Integer.class, userId);
+
+        // iterates through the disliked restaurant IDs and fetchs the restaurant details
+        for (Integer restaurantId : dislikedRestaurantIds) {
+            String restaurantSql = "SELECT * FROM restaurant WHERE id = ?";
+            SqlRowSet resultSet = jdbcTemplate.queryForRowSet(restaurantSql, restaurantId);
+            if (resultSet.next()) {
+                dislikedRestaurants.add(mapRowToRestaurant(resultSet));
+            }
+        }
+
+        return dislikedRestaurants;
+    }
+
+
 
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {
         Restaurant restaurant = new Restaurant();

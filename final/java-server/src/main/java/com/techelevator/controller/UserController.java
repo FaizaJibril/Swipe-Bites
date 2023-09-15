@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 //preferences, recommondations?
-@RestController
+
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 
     private final UserDao userDao;

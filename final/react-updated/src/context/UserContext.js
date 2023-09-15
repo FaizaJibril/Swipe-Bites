@@ -1,4 +1,5 @@
 
+
 import { createContext, useState, useEffect } from 'react';
 
 export const UserContext = createContext();
@@ -13,8 +14,17 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
+  const login = (userData) => {
+    setCurrentUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const logout = () => {
+    localStorage.removeItem('user');
+  };
+
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser, login, logout }}>
       {children}
     </UserContext.Provider>
   );

@@ -65,10 +65,10 @@ public class RestaurantController extends BaseController{
         return restaurantDao.getRestaurantNamesByUserPreference(username);
     }
 
-    @GetMapping
-    public List<Restaurant> getRecommendedRestaurantsByCuisine() {
-        return restaurantDao.getRestaurantNamesByUserPreference();
-    }
+    //@GetMapping
+   // public List<Restaurant> getRecommendedRestaurantsByCuisine() {
+  //      return restaurantDao.getRestaurantNamesByUserPreference();
+   // }
 
 
 

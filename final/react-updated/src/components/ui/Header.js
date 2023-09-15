@@ -6,19 +6,52 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { UserContext } from "../../context/UserContext";
 import { useContext } from "react";
 import Logo from "./../../images/Logo.png"
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; 
 
 const Header = () => {
-    const userContext = useContext(UserContext);
-    const currentUser = userContext.currentUser;
+  const userContext = useContext(UserContext);
+  const currentUser = userContext.currentUser;
 
+  const navigate = useNavigate();
+  const location = useLocation();
 
-	return (
-		<>
-			<header>				
-				
-			</header>
-		</>
-	);
+  const isLoginPage = location.pathname === '/';
+
+  const handleLogout = () => {
+    userContext.logout(); 
+    navigate('/');
+  };
+
+  return (
+    <>
+      <header>
+        {currentUser && !isLoginPage && ( // Display Navbar when user is logged in and not on the login page
+          <Nav>
+            <Navbar bg="light" variant="light" expand="lg">
+              <Container>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav className="justify-content-center">
+                    <NavDropdown title="Drop Down" id="basic-nav-dropdown">
+                      <LinkContainer to="/nonexistant">
+                        <NavDropdown.Item>Some Menu</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/nonexistant">
+                        <NavDropdown.Item>Some Other Menu</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                    </NavDropdown>
+                  </Nav>
+                </Navbar.Collapse>
+              </Container>
+            </Navbar>
+          </Nav>
+        )}
+      </header>
+    </>
+  );
 };
 
 export default Header;

@@ -4,6 +4,7 @@ import ErrorBoundary from './ErrorBoundary';
 import { UserProvider } from './context/UserContext';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
+import Preference from './pages/Preference/Preference'
 import Register from './pages/Register/Register';
 import RestaurantCard from "./pages/Restaurant Listing/RestaurantCard"; // Correctly import the RestaurantCard component
 import './App.css';
@@ -30,6 +31,7 @@ const MyApp = () => {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/Preference" element={<Preference />} />
               <Route
                 path="/restaurant"
                 element={

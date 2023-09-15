@@ -19,13 +19,10 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-   void createUser(User user);
+    void createUser(User user);
 
     void updateUser(User user);
 
     void deleteUser(int id);
-
-
-  String getUserCuisinePreference(long userId);
-
+    
 }
