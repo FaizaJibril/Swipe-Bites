@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import Card from 'react-bootstrap/Card';
+
 import './RestaurantCard.css';
+import { useParams } from 'react-router-dom';
 
 function RestaurantCard() {
+  let { cuisine } = useParams();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [restaurants, setRestaurants] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -11,7 +14,7 @@ function RestaurantCard() {
   useEffect(() => {
     async function fetchRestaurantData() {
       try {
-        const response = await fetch('http://localhost:9003/restaurant');
+        const response = await fetch((cuisine) ? `http://localhost:9003/restaurant/cuisine/${cuisine}` : 'http://localhost:9003/restaurant');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

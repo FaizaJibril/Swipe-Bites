@@ -1,18 +1,15 @@
-import React, { useState, useContext } from 'react';
-import { Container, Button } from 'react-bootstrap';
-import { UserContext } from '../../context/UserContext';
-import { useSwipeable } from 'react-swipeable'; // Import react-swipeable
-import './Preference.css'; // Import the CSS file
-
-
+// Preference.js
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
+import './Preference.css';
 
 const cuisines = [
   {
     id: '1',
     name: 'Italian',
-    image: 'src/images/italian food.jpg',
+    image: 'https://via.placeholder.com/150',
   },
-
   {
     id: '2',
     name: 'Mexican',
@@ -32,19 +29,16 @@ const cuisines = [
 ];
 
 function Preference() {
-  const { currentUser, updateUserPreferences } = useContext(UserContext);
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Define swipe handlers
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-      // Handle left swipe (if needed)
       if (currentIndex < cuisines.length - 1) {
         setCurrentIndex(currentIndex + 1);
       }
     },
     onSwipedRight: () => {
-      // Handle right swipe (if needed)
       if (currentIndex > 0) {
         setCurrentIndex(currentIndex - 1);
       }
@@ -52,11 +46,8 @@ function Preference() {
   });
 
   const handlePreferenceSelection = (cuisineId) => {
-    updateUserPreferences(cuisineId);
-    // Move to the next card on selection (if needed)
-    if (currentIndex < cuisines.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
+    const selectedCuisine = cuisines.find((cuisine) => cuisine.id === cuisineId);
+    navigate(`/restaurant/${selectedCuisine.name}`);
   };
 
   return (
@@ -67,9 +58,7 @@ function Preference() {
         {cuisines.map((cuisine, index) => (
           <div
             key={cuisine.id}
-            className={`cardContainer ${
-              currentIndex === index ? 'selected' : ''
-            }`}
+            className={`cardContainer ${currentIndex === index ? 'selected' : ''}`}
             onClick={() => handlePreferenceSelection(cuisine.id)}
           >
             <img className="cardImage" src={cuisine.image} alt={cuisine.name} />
@@ -79,7 +68,9 @@ function Preference() {
         ))}
       </div>
       {currentIndex === cuisines.length - 1 && (
-        <button className="nextButton">Next</button>
+        <Link to="/restaurant">
+          <button className="nextButton">Next</button>
+        </Link>
       )}
     </div>
   );
