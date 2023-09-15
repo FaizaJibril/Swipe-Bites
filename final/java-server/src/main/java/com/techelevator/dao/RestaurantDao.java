@@ -19,5 +19,7 @@ public interface RestaurantDao {
     void insertPreference(String preferences);
 
 
+    void likedRestaurant(long userId, int restaurantId);
 
+    void disLikedRestaurant(long userId, int restaurantId);
 }

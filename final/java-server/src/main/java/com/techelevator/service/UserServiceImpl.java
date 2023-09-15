@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean createUser(RegisterUserDto newUser) {
         try {
-            if (userDao.create(newUser.getUsername(), newUser.getPassword())) {
+            if (userDao.create(newUser)) {
                 System.out.println("User created:" + newUser.getUsername());
                 return true;
             }

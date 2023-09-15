@@ -147,6 +147,18 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         return dislikedRestaurants;
     }
 
+    @Override
+    public void likedRestaurant(long userId, int restaurantId) {
+        String sql = "INSERT INTO liked_restaurant (user_id, restaurant_id)" + " VALUES (?, ?)";
+            jdbcTemplate.update(sql, userId, restaurantId);
+    }
+    @Override
+    public void disLikedRestaurant(long userId, int restaurantId) {
+        String sql = "INSERT INTO disliked_restaurant (user_id, restaurant_id)" + " VALUES (?, ?)";
+        jdbcTemplate.update(sql, userId, restaurantId);
+    }
+
+
 
 
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {

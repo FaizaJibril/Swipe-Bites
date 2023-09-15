@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -75,13 +76,13 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean create(String username, String password) {
+    public boolean create(RegisterUserDto newUser) {
 
         // create user
-        String sql = "insert into app_users (username, password_hash, role) values (?, ?, 'ROLE_USER') returning user_id";
-        String password_hash = new BCryptPasswordEncoder().encode(password);
+        String sql = "insert into app_users (username, password_hash, role, full_name, preferences) values (?, ?, 'ROLE_USER', ?, ?) returning user_id";
+        String password_hash = new BCryptPasswordEncoder().encode(newUser.getPassword());
         Integer newUserId;
-        newUserId = jdbcTemplate.queryForObject(sql, Integer.class, username, password_hash);
+        newUserId = jdbcTemplate.queryForObject(sql, Integer.class, newUser.getUsername(), password_hash, newUser.getFullName(), newUser.getPreferences());
 
         if (newUserId == null) return false;
 
@@ -129,13 +130,13 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public void insertPreferences(String username, String preferences) {
-        String sql = "INSERT INTO app_users (username, preferences) VALUES (?, ?) returning preferences";
+        String sql = "INSERT INTO app_users (username, preferences) VALUES (?, ?) returning user_id";
         jdbcTemplate.update(sql, username, preferences);
     }
 
     @Override
     public void insertFullName(String username, String fullName) {
-        String sql = "INSERT INTO app_users (username, full_name) VALUES (?, ?) returning fullName";
+        String sql = "INSERT INTO app_users (username, full_name) VALUES (?, ?) returning user_id";
         jdbcTemplate.update(sql, username, fullName);
     }
 

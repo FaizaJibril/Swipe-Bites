@@ -44,12 +44,12 @@ public class UserController extends BaseController{
     public void deleteUser(@PathVariable int id) {
         userDao.deleteUser(id);
     }
-    @PostMapping("/updateFullName/{username}")
+    @PostMapping("/insertFullName/{username}")
     public void insertFullName(@PathVariable String username, @RequestBody String fullName) {
         userDao.insertFullName(username, fullName);
     }
 
-    @PostMapping("/updatePreferences/{username}")
+    @PostMapping("/insertPreferences/{username}")
     public void insertPreferences(@PathVariable String username, @RequestBody String preferences) {
         userDao.insertPreferences(username, preferences);
     }
