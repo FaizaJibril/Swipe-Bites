@@ -4,12 +4,15 @@ import { UserContext } from '../../context/UserContext';
 import { useSwipeable } from 'react-swipeable'; // Import react-swipeable
 import './Preference.css'; // Import the CSS file
 
+
+
 const cuisines = [
   {
     id: '1',
     name: 'Italian',
-    image: 'https://via.placeholder.com/150',
+    image: 'src/images/italian food.jpg',
   },
+
   {
     id: '2',
     name: 'Mexican',
