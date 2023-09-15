@@ -8,6 +8,7 @@ import { useContext } from "react";
 import Logo from "./../../images/Logo.png"
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; 
+import './Header.css'
 
 const Header = () => {
   const userContext = useContext(UserContext);
@@ -19,6 +20,7 @@ const Header = () => {
   const location = useLocation();
 
   const isLoginPage = location.pathname === '/';
+  const isRegistrationPage = location.pathname === '/Register';
 
   const handleLogout = () => {
     userContext.logout(); 
@@ -28,14 +30,14 @@ const Header = () => {
   return (
     <>
       <header>
-        {currentUser && !isLoginPage && ( // Display Navbar when user is logged in and not on the login page
+        {currentUser && !isLoginPage && !isRegistrationPage && ( // Display Navbar when user is logged in and not on the login page
           <Nav>
             <Navbar bg="light" variant="light" expand="lg">
               <Container>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-toggle-button" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="justify-content-center">
-                    <NavDropdown title="Drop Down" id="basic-nav-dropdown">
+                    <NavDropdown title="Menu" id="basic-nav-dropdown" className="custom-dropdown">
                       <LinkContainer to="/nonexistant">
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
