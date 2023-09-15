@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { UserContext } from '../../context/UserContext';
 import { loginUser, registerUser } from '../../api/AuthService';
-import { Link } from 'react-router-dom';
 import "./Register.css"
+import { Link,useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const { setCurrentUser } = useContext(UserContext);
@@ -11,7 +11,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [preference, setPreference] = useState('');
-    
+    const navigate = useNavigate();
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
       };
@@ -34,6 +34,7 @@ const Register = () => {
           localStorage.setItem('user', JSON.stringify(loggedInUser.user));
           localStorage.setItem('token', loggedInUser.token);
           setCurrentUser(loggedInUser.user);
+          navigate("/Login");
         }
       };
     
