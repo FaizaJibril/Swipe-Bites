@@ -22,8 +22,18 @@ const cuisines = [
   },
   {
     id: '4',
-    name: 'American',
+    name: 'American Dinner',
     image: "https://qph.cf2.quoracdn.net/main-qimg-dd54b7f33423c5cda564f7c40e48d2a0-lq",
+  },
+  {
+    id: '5',
+    name: 'Healthy',
+    image: "https://hips.hearstapps.com/hmg-prod/images/healthy-recipes-marquee-1577978180.png?resize=640:*",
+  },
+  {
+    id: '6',
+    name: 'Sushi',
+    image: "https://www.allrecipes.com/thmb/CBOcP0zp71lR2bn-KUMkgCB92RA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/24228-Sushi-roll-ddmfs-4x3-2914-1839f746d9334814a7a5d93ed45ba082.jpg",
   },
   // Add more cuisines as needed
 ];

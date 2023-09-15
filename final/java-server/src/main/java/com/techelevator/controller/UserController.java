@@ -12,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 public class UserController extends BaseController{
 
-    private final UserDao userDao;
+    private final UserDao userDao ;
 
     public UserController(UserDao userDao) {
         this.userDao = userDao;

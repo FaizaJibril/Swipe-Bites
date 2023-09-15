@@ -15,7 +15,11 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
-    setCurrentUser(userData);
+    // Include the user's ID when setting currentUser
+    setCurrentUser({
+      ...userData,
+      id: userData.id, // Replace 'id' with the actual property name for the user's ID
+    });
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
@@ -30,3 +34,4 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
