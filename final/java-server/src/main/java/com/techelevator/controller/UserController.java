@@ -31,8 +31,6 @@ public class UserController extends BaseController{
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody User user) {
-        user.setFullName(user.getFullName());
-        user.setPreferences(user.getPreferences());
         userDao.createUser(user);
     }
 
@@ -46,7 +44,15 @@ public class UserController extends BaseController{
     public void deleteUser(@PathVariable int id) {
         userDao.deleteUser(id);
     }
+    @PostMapping("/{username}/updateFullName")
+    public void updateFullName(@PathVariable String username, @RequestBody String fullName) {
+        userDao.insertFullName(username, fullName);
+    }
 
+    @PostMapping("/{username}/updatePreferences")
+    public void updatePreferences(@PathVariable String username, @RequestBody String preferences) {
+        userDao.insertPreferences(username, preferences);
+    }
 
 
 }
