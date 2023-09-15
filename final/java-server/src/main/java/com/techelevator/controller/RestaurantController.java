@@ -33,7 +33,8 @@ public class RestaurantController extends BaseController{
     public Restaurant getAllRestaurantById(@PathVariable int id) {
         return restaurantDao.getRestaurantById(id);
     }
-    @GetMapping("/{cuisine}")
+    @GetMapping("/cuisine/{cuisine}")
+    //CUISINE
     public Restaurant getRestaurantCuisine(@PathVariable String cuisine) {
         return restaurantDao.getRestaurantCuisine(cuisine);
     }
@@ -68,6 +69,11 @@ public class RestaurantController extends BaseController{
     public List<String> getRestaurantNamesByUserPreference(@PathVariable String username) {
         return restaurantDao.getRestaurantNamesByUserPreference(username);
     }
+
+    //@GetMapping
+   // public List<Restaurant> getRecommendedRestaurantsByCuisine() {
+  //      return restaurantDao.getRestaurantNamesByUserPreference();
+   // }
 
 
 

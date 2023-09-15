@@ -14,7 +14,10 @@ public interface RestaurantDao {
     void updateRestaurant(Restaurant restaurant);
     void deleteRestaurant(int id);
 
-    List<String> getRestaurantNamesByUserPreference(String username);
+   List<String> getRestaurantNamesByUserPreference(String username);
 
     void insertPreference(String preferences);
+
+
+
 }

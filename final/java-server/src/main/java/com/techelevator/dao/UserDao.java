@@ -25,6 +25,8 @@ public interface UserDao {
     void updateUser(User user);
 
     void deleteUser(int id);
+
     void insertPreferences(String username, String preferences);
     void insertFullName(String username, String fullName);
+
 }

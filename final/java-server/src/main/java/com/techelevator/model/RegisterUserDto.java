@@ -13,6 +13,26 @@ public class RegisterUserDto {
     private String username;
     @NotEmpty
     private String password;
+    @NotEmpty
+    private String fullName;
+    @NotEmpty
+    private String preferences;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(String preferences) {
+        this.preferences = preferences;
+    }
 
     public String getUsername() {
         return username;
