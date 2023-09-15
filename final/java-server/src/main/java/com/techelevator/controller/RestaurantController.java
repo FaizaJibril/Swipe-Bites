@@ -34,6 +34,7 @@ public class RestaurantController extends BaseController{
         return restaurantDao.getRestaurantById(id);
     }
     @GetMapping("/cuisine/{cuisine}")
+    //CUISINE
     public Restaurant getRestaurantCuisine(@PathVariable String cuisine) {
         return restaurantDao.getRestaurantCuisine(cuisine);
     }
