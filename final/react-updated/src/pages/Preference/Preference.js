@@ -10,23 +10,23 @@ const cuisines = [
   {
     id: '1',
     name: 'Italian',
-    image: 'src/images/italian food.jpg',
+    image: "https://c.ndtvimg.com/2021-04/umk8i7ko_pasta_625x300_01_April_21.jpg?im=FaceCrop,algorithm=dnn,width=1200,height=886"
   },
 
   {
     id: '2',
     name: 'Mexican',
-    image: 'https://via.placeholder.com/150',
+    image: "https://www.nanosrecipes.com/wp-content/uploads/2016/06/Tacos_Green_15-150x150@2x.jpg",
   },
   {
     id: '3',
     name: 'Indian',
-    image: 'https://via.placeholder.com/150',
+    image: "https://www.seema.com/wp-content/uploads/2023/03/Best-Indian-Restaurants-in-the-USA.jpg",
   },
   {
     id: '4',
     name: 'American',
-    image: 'https://via.placeholder.com/150',
+    image: "https://qph.cf2.quoracdn.net/main-qimg-dd54b7f33423c5cda564f7c40e48d2a0-lq",
   },
   // Add more cuisines as needed
 ];
@@ -61,7 +61,7 @@ function Preference() {
 
   return (
     <div className="container" {...handlers}>
-      <h1>Welcome There!</h1>
+      <h1 className= "welcomeText">Hello There!</h1>
       <p className="headerText">Swipe to Select Your Cuisine</p>
       <div className="cuisineContainer">
         {cuisines.map((cuisine, index) => (
