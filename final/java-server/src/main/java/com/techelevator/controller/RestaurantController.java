@@ -63,9 +63,17 @@ public class RestaurantController extends BaseController{
     @PreAuthorize("isAuthenticated()")
     public void disLikedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
-
-
     }
+    @GetMapping("/{id}/liked")
+    @PreAuthorize("isAuthenticated()")
+    //GETTING LIKED RESTAURANTS TO OTHER SIDE
+    public List<Restaurant> getLikedRestaurants(@PathVariable int id) {
+        List<Restaurant> likedRestaurants = restaurantDao.getLikedRestaurantsByUserId(id);
+
+        return likedRestaurants;
+    }
+
+
 
     @GetMapping("/by-user-preference/{username}")
     public List<String> getRestaurantNamesByUserPreference(@PathVariable String username) {

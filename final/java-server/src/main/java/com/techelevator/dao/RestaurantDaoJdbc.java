@@ -113,7 +113,7 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
     public List<Restaurant> getLikedRestaurantsByUserId(long userId) {
         List<Restaurant> likedRestaurants = new ArrayList<>();
-
+        // RESTAURANT LIST TO OTHER SIDE
         String likedRestaurantIdsSql = "SELECT restaurant_id FROM liked_restaurants WHERE user_id = ?";
         List<Integer> likedRestaurantIds = jdbcTemplate.queryForList(likedRestaurantIdsSql, Integer.class, userId);
 
@@ -158,7 +158,10 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         jdbcTemplate.update(sql, userId, restaurantId);
     }
 
-
+    @Override
+    public List<Restaurant> getLikedRestaurantsByUserId(int id) {
+        return null;
+    }
 
 
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {

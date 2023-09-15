@@ -22,4 +22,6 @@ public interface RestaurantDao {
     void likedRestaurant(long userId, int restaurantId);
 
     void disLikedRestaurant(long userId, int restaurantId);
+
+    List<Restaurant> getLikedRestaurantsByUserId(int id);
 }
