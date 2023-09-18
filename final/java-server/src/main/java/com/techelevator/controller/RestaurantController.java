@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,6 +16,7 @@ import java.util.List;
 @CrossOrigin
 public class RestaurantController extends BaseController{
     private final RestaurantDao restaurantDao;
+    private boolean endOfList = false;
 
     public RestaurantController(RestaurantDao restaurantDao) {
         this.restaurantDao = restaurantDao;
@@ -27,7 +29,14 @@ public class RestaurantController extends BaseController{
 
     @GetMapping
     public List<Restaurant> getAllRestaurantById() {
-        return restaurantDao.getAllRestaurant();
+        if (endOfList) {
+            return new ArrayList<>();
+        }
+        List<Restaurant> restaurants = restaurantDao.getAllRestaurant();
+        if (restaurants.isEmpty()) {
+            endOfList = true;
+        }
+        return restaurants;
     }
     @GetMapping("/{id}")
     public Restaurant getAllRestaurantById(@PathVariable int id) {
@@ -54,18 +63,22 @@ public class RestaurantController extends BaseController{
         restaurantDao.deleteRestaurant(id);
     }
 
-    @GetMapping("/{id}/like")
+    @PostMapping("/{id}/like")
     @PreAuthorize("isAuthenticated()")
+    //Right SWIPE
     public void likedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
     }
-    @GetMapping("/{id}/disLiked")
+    @PostMapping("/{id}/disLiked")
     @PreAuthorize("isAuthenticated()")
+    //Left SWIPE
     public void disLikedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
+
     }
     @GetMapping("/{id}/liked")
     @PreAuthorize("isAuthenticated()")
+    //LIST
     //GETTING LIKED RESTAURANTS TO OTHER SIDE
     public List<Restaurant> getLikedRestaurants(@PathVariable int id) {
         List<Restaurant> likedRestaurants = restaurantDao.getLikedRestaurantsByUserId(id);
