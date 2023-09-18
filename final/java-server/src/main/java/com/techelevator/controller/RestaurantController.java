@@ -8,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,7 +15,6 @@ import java.util.List;
 @CrossOrigin
 public class RestaurantController extends BaseController{
     private final RestaurantDao restaurantDao;
-    private boolean endOfList = false;
 
     public RestaurantController(RestaurantDao restaurantDao) {
         this.restaurantDao = restaurantDao;
@@ -29,14 +27,7 @@ public class RestaurantController extends BaseController{
 
     @GetMapping
     public List<Restaurant> getAllRestaurantById() {
-        if (endOfList) {
-            return new ArrayList<>();
-        }
-        List<Restaurant> restaurants = restaurantDao.getAllRestaurant();
-        if (restaurants.isEmpty()) {
-            endOfList = true;
-        }
-        return restaurants;
+        return restaurantDao.getAllRestaurant();
     }
     @GetMapping("/{id}")
     public Restaurant getAllRestaurantById(@PathVariable int id) {

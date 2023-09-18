@@ -10,6 +10,8 @@ import Header from './components/ui/Header';
 import RestaurantCard from "./pages/Restaurant Listing/RestaurantCard"; // Correctly import the RestaurantCard component
 import './App.css';
 import UserProfile from './pages/Profile/UserProfile';
+import LikedDisliked from './pages/LikedDisliked/LikedDisliked'
+
 
 const MyApp = () => {
   const [restaurants, setRestaurants] = useState([]); // Replace with actual restaurant data
@@ -36,6 +38,7 @@ const MyApp = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/Preference" element={<Preference />} />
               <Route path="/UserProfile" element={<UserProfile />} />
+              <Route path="/LikesDislikes" element={<LikedDisliked />} />
               <Route
                 path="/restaurant"
                 element={
