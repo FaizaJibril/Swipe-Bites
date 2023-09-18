@@ -10,6 +10,7 @@ const UserProfile = () => {
   const [userData, setUserData] = useState({
     fullName: currentUser.fullName,
     email: currentUser.username,
+    username: currentUser.username,
     password: '', // You can include the password here
     preferences: currentUser.preferences,
   });
@@ -32,6 +33,7 @@ const UserProfile = () => {
           ...userData,
           fullName: data.fullName,
           email: data.username,
+          username: data.username,
           // Update other fields as needed
           preferences: data.preferences,
         });

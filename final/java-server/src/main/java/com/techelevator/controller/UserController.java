@@ -10,6 +10,7 @@ import java.util.List;
 
 @RequestMapping("/user")
 @CrossOrigin
+@RestController
 public class UserController extends BaseController{
 
     private final UserDao userDao ;

@@ -40,7 +40,7 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public User getUserById(long userId) {
-        String sql = "select user_id, username, password_hash from app_users where user_id = ?";
+        String sql = "select user_id, username, password_hash, preferences, full_name from app_users where user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()) {
             return mapRowToUser(results, true, "");
@@ -52,7 +52,7 @@ public class UserDaoJdbc implements UserDao {
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select user_id, username, password_hash from app_users";
+        String sql = "select user_id, username, password_hash, preferences, full_name from app_users";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -67,7 +67,7 @@ public class UserDaoJdbc implements UserDao {
     public User findByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
 
-        String sql = "select user_id, username, password_hash from app_users where username = ?;";
+        String sql = "select user_id, username, password_hash, preferences, full_name from app_users where username = ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
         if (rowSet.next()) {
             return mapRowToUser(rowSet, true, "");
@@ -124,6 +124,8 @@ public class UserDaoJdbc implements UserDao {
         }
         user.setActivated(true);
         user.setAuthorities("USER");
+        user.setPreferences(rs.getString("preferences"));
+        user.setFullName(rs.getString("full_name"));
         return user;
     }
 
