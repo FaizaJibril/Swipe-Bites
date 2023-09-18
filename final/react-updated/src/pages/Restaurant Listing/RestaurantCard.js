@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import Card from 'react-bootstrap/Card';
-import {like, dislike} from '../../api/RestaurantApi';
+import { like, dislike } from '../../api/RestaurantApi';
 
 import './RestaurantCard.css';
 import { useParams } from 'react-router-dom';
@@ -11,11 +11,28 @@ function RestaurantCard() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [restaurants, setRestaurants] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [likedRestaurants, setLikedRestaurants] = useState([]);
+  const [dislikedRestaurants, setDislikedRestaurants] = useState([]);
+
+  const handleReset = () => {
+    // Reload the page to reset the state
+    window.location.reload();
+  };
+
+  const handleViewLikedRestaurants = () => {
+    // Add your logic to navigate to the liked restaurants page
+    // For example, you can use react-router-dom to navigate to a different route
+    // This could be done in your parent component or using a router library
+  };
 
   useEffect(() => {
     async function fetchRestaurantData() {
       try {
-        const response = await fetch((cuisine) ? `http://localhost:9003/restaurant/cuisine/${cuisine}` : 'http://localhost:9003/restaurant');
+        const response = await fetch(
+          cuisine
+            ? `http://localhost:9003/restaurant/cuisine/${cuisine}`
+            : 'http://localhost:9003/restaurant'
+        );
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -35,84 +52,104 @@ function RestaurantCard() {
   const { id, name, description, priceRange, reviews, photoUrl, address } =
     restaurants[currentIndex] || {};
 
-    // left swipe is disliked and right swipe is liked
+  // left swipe is disliked and right swipe is liked
   const handlers = useSwipeable({
-    onSwipedLeft: async() => {
-      // Make an API call to send disliked restaurant details
+    onSwipedRight: async () => {
       try {
-        const response = await fetch('http://localhost:9003/restaurant/' + id + '/like', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+        // Make an API call to send liked restaurant details
+        await like(id);
 
-        if (!response.ok) {
-          throw new Error('Failed to send disliked restaurant data');
-        }
+        // Add the liked restaurant to the likedRestaurants state
+        setLikedRestaurants([...likedRestaurants, restaurants[currentIndex]]);
 
-        // Handle the response from the backend if needed
+        // Remove the liked restaurant from the available restaurants
+        const updatedRestaurants = [...restaurants];
+        updatedRestaurants.splice(currentIndex, 1);
+        setRestaurants(updatedRestaurants);
+
+        // Move to the next restaurant
+        setCurrentIndex((prevIndex) =>
+          prevIndex === updatedRestaurants.length - 1 ? 0 : prevIndex + 1
+        );
+      } catch (error) {
+        console.error('Error sending liked restaurant data:', error);
+      }
+    },
+    onSwipedLeft: async () => {
+      try {
+        // Make an API call to send disliked restaurant details
+        await dislike(id);
+
+        // Add the disliked restaurant to the dislikedRestaurants state
+        setDislikedRestaurants([
+          ...dislikedRestaurants,
+          restaurants[currentIndex],
+        ]);
+
+        // Remove the disliked restaurant from the available restaurants
+        const updatedRestaurants = [...restaurants];
+        updatedRestaurants.splice(currentIndex, 1);
+        setRestaurants(updatedRestaurants);
+
+        // Move to the next restaurant
+        setCurrentIndex((prevIndex) =>
+          prevIndex === updatedRestaurants.length - 1 ? 0 : prevIndex + 1
+        );
       } catch (error) {
         console.error('Error sending disliked restaurant data:', error);
       }
-
-      // Move to the next restaurant
-      setCurrentIndex((prevIndex) =>
-        prevIndex === restaurants.length - 1 ? 0 : prevIndex + 1
-      );
-    },
-    onSwipedRight: async () => {
-      // Make an API call to send liked restaurant details
-      await like(id);
-      // Move to the next restaurant
-      setCurrentIndex((prevIndex) =>
-        prevIndex === restaurants.length - 1 ? 0 : prevIndex + 1
-      );
     },
   });
 
   function generateDollarSigns(priceRange) {
     const dollarSigns = '$'.repeat(priceRange); // Repeat '$' based on priceRange
     return dollarSigns;
-  };
+  }
 
   const truncatedDescription = reviews?.substring(0, 100); // Adjust the character limit
 
-return (
-  <div className="centered-container">
-    <Card {...handlers} className="restaurant-card">
-      <Card.Img
-        variant="top"
-        src={photoUrl}
-        alt={`Image of ${name}`}
-        className="image-reduced-height"
-      />
-      <Card.Body>
-      <Card.Title>{name}</Card.Title>
-        <Card.Text>
-          <span className={`description-text ${isExpanded ? 'expanded' : ''}`}>
-            {reviews}
-          </span>
-          {!isExpanded && reviews?.length > 100 && (
-            <button className="expand-button" onClick={toggleExpand}>
-              Read More
-            </button>
-          )}
-          {isExpanded && (
-            <button className="expand-button" onClick={toggleExpand}>
-              Read Less
-            </button>
-          )}
-        </Card.Text>
-        <Card.Text>Address: {address}</Card.Text>
-        <Card.Text>Price: {generateDollarSigns(priceRange)}</Card.Text>
-      </Card.Body>
-    </Card>
-  </div>
-);
-          }
+  return (
+    <div className="centered-container">
+      {currentIndex < restaurants.length ? (
+        <Card {...handlers} className="restaurant-card">
+          <Card.Img
+            variant="top"
+            src={photoUrl}
+            alt={`Image of ${name}`}
+            className="image-reduced-height"
+          />
+          <Card.Body>
+            <Card.Title>{name}</Card.Title>
+            <Card.Text>
+              <span
+                className={`description-text ${isExpanded ? 'expanded' : ''}`}
+              >
+                {reviews}
+              </span>
+              {!isExpanded && reviews?.length > 100 && (
+                <button className="expand-button" onClick={toggleExpand}>
+                  Read More
+                </button>
+              )}
+              {isExpanded && (
+                <button className="expand-button" onClick={toggleExpand}>
+                  Read Less
+                </button>
+              )}
+            </Card.Text>
+            <Card.Text>Address: {address}</Card.Text>
+            <Card.Text>Price: {generateDollarSigns(priceRange)}</Card.Text>
+          </Card.Body>
+        </Card>
+      ) : (
+        <div>
+          <p>Oops, no more restaurants to display.</p>
+          <button onClick={handleReset}>Reset Selections</button>
+          <button onClick={handleViewLikedRestaurants}>View Liked Restaurants</button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default RestaurantCard;
-
-
-

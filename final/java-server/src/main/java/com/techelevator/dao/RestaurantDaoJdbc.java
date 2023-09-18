@@ -114,25 +114,25 @@ public class RestaurantDaoJdbc implements RestaurantDao{
     8?
      */
 
-    public List<Restaurant> getRecommendedRestaurantsByCuisine(int userId) {
-        List<Restaurant> recommendedRestaurants = new ArrayList<>();
-
-        // Get the user's cuisine preference from the app_users table
-        String cuisinePreferenceSql = "SELECT preferences FROM app_users WHERE user_id = ?";
-        String cuisinePreference = jdbcTemplate.queryForObject(cuisinePreferenceSql, String.class, userId);
-
-        // Retrieve restaurants that match the user's cuisine preference and are not liked or disliked
-        String sql = "SELECT * FROM restaurant WHERE cuisine = ? AND id NOT IN " +
-                "(SELECT restaurant_id FROM liked_restaurants WHERE user_id = ?) " +
-                "AND id NOT IN (SELECT restaurant_id FROM disliked_restaurants WHERE user_id = ?)";
-        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(sql, cuisinePreference, userId, userId);
-
-        while (resultSet.next()) {
-            recommendedRestaurants.add(mapRowToRestaurant(resultSet));
-        }
-
-        return recommendedRestaurants;
-    }
+//    public List<Restaurant> getRecommendedRestaurantsByCuisine(int userId) {
+//        List<Restaurant> recommendedRestaurants = new ArrayList<>();
+//
+//        // Get the user's cuisine preference from the app_users table
+//        String cuisinePreferenceSql = "SELECT preferences FROM app_users WHERE user_id = ?";
+//        String cuisinePreference = jdbcTemplate.queryForObject(cuisinePreferenceSql, String.class, userId);
+//
+//        // Retrieve restaurants that match the user's cuisine preference and are not liked or disliked
+//        String sql = "SELECT * FROM restaurant WHERE cuisine = ? AND id NOT IN " +
+//                "(SELECT restaurant_id FROM liked_restaurants WHERE user_id = ?) " +
+//                "AND id NOT IN (SELECT restaurant_id FROM disliked_restaurants WHERE user_id = ?)";
+//        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(sql, cuisinePreference, userId, userId);
+//
+//        while (resultSet.next()) {
+//            recommendedRestaurants.add(mapRowToRestaurant(resultSet));
+//        }
+//
+//        return recommendedRestaurants;
+//    }
 
 
 
