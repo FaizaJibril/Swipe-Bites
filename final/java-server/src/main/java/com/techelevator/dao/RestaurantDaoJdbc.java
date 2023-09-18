@@ -169,6 +169,28 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
 
 
+
+    //
+    //
+    //    public Restaurant chooseRandomLikedRestaurant(long userId) {
+    //
+    //        List<Restaurant> likedRestaurants = restaurantDao.getLikedRestaurantsByUserId(userId);
+    //
+    //
+    //        if (likedRestaurants.isEmpty()) {
+    //            return null; // No liked restaurants found
+    //        }
+    //
+    //        // generate a random index to select a restaurant
+    //        Random random = new Random();
+    //        int randomIndex = random.nextInt(likedRestaurants.size());
+    //
+    //        // return the randomly chosen restaurant
+    //        return likedRestaurants.get(randomIndex);
+    //    }
+    //}
+
+
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(rowSet.getInt("restaurant_id"));

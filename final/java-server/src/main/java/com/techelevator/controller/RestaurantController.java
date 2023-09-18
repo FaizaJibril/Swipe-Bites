@@ -77,6 +77,23 @@ public class RestaurantController extends BaseController{
         return likedRestaurants;
     }
 
+//@GetMapping
+    // public List<Restaurant> getRecommendedRestaurantsByCuisine() {
+    //      return restaurantDao.getRestaurantNamesByUserPreference();
+    // }
+
+    //    @GetMapping("/{userId}/random-liked-restaurant")
+    //    @PreAuthorize("isAuthenticated()")
+    //    public ResponseEntity<Restaurant> getRandomLikedRestaurant(@PathVariable long userId) {
+    //        Restaurant randomLikedRestaurant = restaurantService.chooseRandomLikedRestaurant(userId);
+    //
+    //        if (randomLikedRestaurant != null) {
+    //            return ResponseEntity.ok(randomLikedRestaurant);
+    //        } else {
+    //            return ResponseEntity.notFound().build();
+    //        }
+    //    }
+    //}
 
 
     @GetMapping("/by-user-preference/{username}")
@@ -84,10 +101,6 @@ public class RestaurantController extends BaseController{
         return restaurantDao.getRestaurantNamesByUserPreference(username);
     }
 
-    //@GetMapping
-   // public List<Restaurant> getRecommendedRestaurantsByCuisine() {
-  //      return restaurantDao.getRestaurantNamesByUserPreference();
-   // }
 
 
 
