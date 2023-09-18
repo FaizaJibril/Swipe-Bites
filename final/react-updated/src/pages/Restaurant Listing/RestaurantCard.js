@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import Card from 'react-bootstrap/Card';
+import {like, dislike} from '../../api/RestaurantApi';
 
 import './RestaurantCard.css';
 import { useParams } from 'react-router-dom';
@@ -34,15 +35,38 @@ function RestaurantCard() {
   const { id, name, description, priceRange, reviews, photoUrl, address } =
     restaurants[currentIndex] || {};
 
+    // left swipe is disliked and right swipe is liked
   const handlers = useSwipeable({
-    onSwipedLeft: () => {
+    onSwipedLeft: async() => {
+      // Make an API call to send disliked restaurant details
+      try {
+        const response = await fetch('http://localhost:9003/restaurant/' + id + '/like', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to send disliked restaurant data');
+        }
+
+        // Handle the response from the backend if needed
+      } catch (error) {
+        console.error('Error sending disliked restaurant data:', error);
+      }
+
+      // Move to the next restaurant
       setCurrentIndex((prevIndex) =>
         prevIndex === restaurants.length - 1 ? 0 : prevIndex + 1
       );
     },
-    onSwipedRight: () => {
+    onSwipedRight: async () => {
+      // Make an API call to send liked restaurant details
+      await like(id);
+      // Move to the next restaurant
       setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? restaurants.length - 1 : prevIndex - 1
+        prevIndex === restaurants.length - 1 ? 0 : prevIndex + 1
       );
     },
   });

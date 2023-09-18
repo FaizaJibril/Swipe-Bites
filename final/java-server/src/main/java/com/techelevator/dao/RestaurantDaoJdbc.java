@@ -111,20 +111,29 @@ public class RestaurantDaoJdbc implements RestaurantDao{
     }
 
 
-    public List<Restaurant> getLikedRestaurantsByUserId(long userId) {
+
+    public List<Restaurant> getLikedRestaurantsByUserId(int userId) {
         List<Restaurant> likedRestaurants = new ArrayList<>();
         // RESTAURANT LIST TO OTHER SIDE
-        String likedRestaurantIdsSql = "SELECT restaurant_id FROM liked_restaurants WHERE user_id = ?";
-        List<Integer> likedRestaurantIds = jdbcTemplate.queryForList(likedRestaurantIdsSql, Integer.class, userId);
-
-
-        for (Integer restaurantId : likedRestaurantIds) {
-            String restaurantSql = "SELECT * FROM restaurant WHERE id = ?";
-            SqlRowSet resultSet = jdbcTemplate.queryForRowSet(restaurantSql, restaurantId);
-            if (resultSet.next()) {
-                likedRestaurants.add(mapRowToRestaurant(resultSet));
-            }
+        String likedRestaurantIdsSql = "SELECT distinct r.* " +
+                " FROM restaurant r " +
+                " join liked_restaurants lr " +
+                "   on lr.restaurant_id = r.restaurant_id " +
+                " WHERE lr.user_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(likedRestaurantIdsSql,userId);
+        while (results.next()){
+            likedRestaurants.add(mapRowToRestaurant(results));
         }
+//        List<Integer> likedRestaurantIds = jdbcTemplate.queryForList(likedRestaurantIdsSql, Integer.class, userId);
+//
+//
+//        for (Integer restaurantId : likedRestaurantIds) {
+//            String restaurantSql = "SELECT * FROM restaurant WHERE id = ?";
+//            SqlRowSet resultSet = jdbcTemplate.queryForRowSet(restaurantSql, restaurantId);
+//            if (resultSet.next()) {
+//                likedRestaurants.add(mapRowToRestaurant(resultSet));
+//            }
+//        }
 
         return likedRestaurants;
     }
@@ -149,19 +158,15 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
     @Override
     public void likedRestaurant(long userId, int restaurantId) {
-        String sql = "INSERT INTO liked_restaurant (user_id, restaurant_id)" + " VALUES (?, ?)";
+        String sql = "INSERT INTO liked_restaurants (user_id, restaurant_id)" + " VALUES (?, ?)";
             jdbcTemplate.update(sql, userId, restaurantId);
     }
     @Override
     public void disLikedRestaurant(long userId, int restaurantId) {
-        String sql = "INSERT INTO disliked_restaurant (user_id, restaurant_id)" + " VALUES (?, ?)";
+        String sql = "INSERT INTO disliked_restaurants (user_id, restaurant_id)" + " VALUES (?, ?)";
         jdbcTemplate.update(sql, userId, restaurantId);
     }
 
-    @Override
-    public List<Restaurant> getLikedRestaurantsByUserId(int id) {
-        return null;
-    }
 
 
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {

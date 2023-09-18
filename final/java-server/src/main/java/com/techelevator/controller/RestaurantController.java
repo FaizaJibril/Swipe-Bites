@@ -54,15 +54,19 @@ public class RestaurantController extends BaseController{
         restaurantDao.deleteRestaurant(id);
     }
 
-    @GetMapping("/{id}/like")
+    @PostMapping("/{id}/like")
     @PreAuthorize("isAuthenticated()")
+    @CrossOrigin
     public void likedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
+        restaurantDao.likedRestaurant(user.getId(),id);
     }
-    @GetMapping("/{id}/disLiked")
+    @PostMapping("/{id}/disLiked")
     @PreAuthorize("isAuthenticated()")
+    @CrossOrigin
     public void disLikedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
+        restaurantDao.disLikedRestaurant(user.getId(),id);
     }
     @GetMapping("/{id}/liked")
     @PreAuthorize("isAuthenticated()")
