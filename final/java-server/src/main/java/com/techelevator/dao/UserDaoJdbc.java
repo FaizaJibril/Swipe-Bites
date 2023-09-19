@@ -101,7 +101,10 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public void updateUser(User user) {
+        String sql = "UPDATE app_users SET full_name = ?, preferences = ? WHERE user_id = ?";
 
+        // Update the user's full name and preferences based on user_id
+        jdbcTemplate.update(sql, user.getFullName(), user.getPreferences(), user.getId());
     }
 
     @Override

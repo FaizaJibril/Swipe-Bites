@@ -38,7 +38,7 @@ const MyApp = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/Preference" element={<Preference />} />
               <Route path="/UserProfile" element={<UserProfile />} />
-              <Route path="/LikesDislikes" element={<LikedDisliked />} />
+              <Route path="/likes" element={<LikedDisliked />} />
               <Route
                 path="/restaurant"
                 element={

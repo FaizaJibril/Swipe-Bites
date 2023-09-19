@@ -1,71 +1,58 @@
-// LikedDislikedRestaurants.js
-import React, { useState } from 'react';
-import './LikedDisliked.css'; // Import the CSS file
-import { Link } from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { like, dislike, liked } from '../../api/RestaurantApi';
+import { getUser } from '../../api/UserApi';
+import './LikedDisliked.css';
+import { UserContext } from "../../context/UserContext";
+import { useContext } from "react";
 function LikedDisliked() {
   const [likedRestaurants, setLikedRestaurants] = useState([]);
-  const [dislikedRestaurants, setDislikedRestaurants] = useState([]);
+  const [expandedRestaurant, setExpandedRestaurant] = useState(null);
+  const userContext = useContext(UserContext);
+  const currentUser = userContext.currentUser;
 
-  // Function to add a restaurant to the liked list
-  const addToLiked = (restaurant) => {
-    setLikedRestaurants([...likedRestaurants, restaurant]);
-  };
 
-  // Function to add a restaurant to the disliked list
-  const addToDisliked = (restaurant) => {
-    setDislikedRestaurants([...dislikedRestaurants, restaurant]);
-  };
+  useEffect(() => {
+        liked(currentUser.id)
+          .then((data) => setLikedRestaurants(data))
+          .catch((error) => console.error('Error fetching liked restaurants:', error));
+  }, []);
 
-  // Function to remove a restaurant from the liked list
-  const removeFromLiked = (restaurant) => {
-    const updatedLiked = likedRestaurants.filter((r) => r.id !== restaurant.id);
-    setLikedRestaurants(updatedLiked);
-  };
-
-  // Function to remove a restaurant from the disliked list
-  const removeFromDisliked = (restaurant) => {
-    const updatedDisliked = dislikedRestaurants.filter((r) => r.id !== restaurant.id);
-    setDislikedRestaurants(updatedDisliked);
+  const handleExpand = (restaurant) => {
+    setExpandedRestaurant(expandedRestaurant === restaurant ? null : restaurant);
   };
 
   return (
-    <div className="container">
-      <h1 className="page-title">Liked and Disliked Restaurants</h1>
-
+    <div className="centered-container">
+      <h1>Liked Restaurants</h1>
       <div className="restaurant-list">
-        <div className="list">
-          <h2>Liked Restaurants</h2>
-          <ul>
-            {likedRestaurants.map((restaurant) => (
-              <li key={restaurant.id}>
-                <span className="restaurant-name">{restaurant.name}</span>
-                <button className="remove-button" onClick={() => removeFromLiked(restaurant)}>
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="list">
-          <h2>Disliked Restaurants</h2>
-          <ul>
-            {dislikedRestaurants.map((restaurant) => (
-              <li key={restaurant.id}>
-                <span className="restaurant-name">{restaurant.name}</span>
-                <button className="remove-button" onClick={() => removeFromDisliked(restaurant)}>
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {likedRestaurants.map((restaurant) => (
+          <Card
+            key={restaurant.id}
+            className="restaurant-card"
+            onClick={() => handleExpand(restaurant)}
+          >
+            <Card.Img
+              variant="top"
+              src={restaurant.photoUrl}
+              alt={`Image of ${restaurant.name}`}
+              className="image-reduced-height"
+            />
+            <Card.Body>
+              <Card.Title>{restaurant.name}</Card.Title>
+              {expandedRestaurant === restaurant && (
+                <div>
+                  <Card.Text>{restaurant.reviews}</Card.Text>
+                  <Card.Text>Address: {restaurant.address}</Card.Text>
+                  <Card.Text>Price Range: {restaurant.priceRange}</Card.Text>
+                  <Button variant="primary">Book Now</Button>
+                </div>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
       </div>
-
-      <Link to="/" className="back-link">
-        Back to Preference
-      </Link>
     </div>
   );
 }
