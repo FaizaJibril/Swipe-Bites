@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
 import org.junit.Assert;
 import org.junit.Before;
@@ -81,6 +82,7 @@ public class UserDaoJdbcTests extends BaseDaoTests {
         Assert.assertEquals(USER_2, users.get(1));
         Assert.assertEquals(USER_3, users.get(2));
     }
+
 //
 //    @Test(expected = DataIntegrityViolationException.class)
 //    public void create_user_with_null_username() {
@@ -111,4 +113,7 @@ public class UserDaoJdbcTests extends BaseDaoTests {
 //        actualUser.setPassword(newUser.getPassword()); // reset password back to unhashed password for testing
 //        Assert.assertEquals(newUser, actualUser);
 //    }
+
+
+  
 }

@@ -7,7 +7,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+
 import java.sql.Timestamp;
+
 import java.util.List;
 
 @RestController
@@ -16,6 +18,7 @@ import java.util.List;
 public class RestaurantController extends BaseController{
     private final RestaurantDao restaurantDao;
 
+
     public RestaurantController(RestaurantDao restaurantDao) {
         this.restaurantDao = restaurantDao;
     }
@@ -23,7 +26,8 @@ public class RestaurantController extends BaseController{
     @GetMapping
     @CrossOrigin
     public List<Restaurant> getAllRestaurantById() {
-        return restaurantDao.getAllRestaurant();
+   return restaurantDao.getAllRestaurant();
+
     }
     @GetMapping("/{id}")
     @CrossOrigin
@@ -66,6 +70,7 @@ public class RestaurantController extends BaseController{
 
     }
     @GetMapping("/{id}/liked")
+    @CrossOrigin
     @PreAuthorize("isAuthenticated()")
     //LIST
     //GETTING LIKED RESTAURANTS TO OTHER SIDE

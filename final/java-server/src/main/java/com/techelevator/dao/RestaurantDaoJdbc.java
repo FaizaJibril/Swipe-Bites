@@ -92,7 +92,6 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
     }
 
-
     public List<Restaurant> getRecommendedRestaurantsByCuisine(int userId) {
         List<Restaurant> recommendedRestaurants = new ArrayList<>();
 
@@ -106,12 +105,14 @@ public class RestaurantDaoJdbc implements RestaurantDao{
                 "AND id NOT IN (SELECT restaurant_id FROM disliked_restaurants WHERE user_id = ?)";
         SqlRowSet resultSet = jdbcTemplate.queryForRowSet(sql, cuisinePreference, userId, userId);
 
+
         while (resultSet.next()) {
             recommendedRestaurants.add(mapRowToRestaurant(resultSet));
         }
 
         return recommendedRestaurants;
     }
+
 
     public List<Restaurant> getLikedRestaurantsByUserId(int userId) {
         List<Restaurant> likedRestaurants = new ArrayList<>();

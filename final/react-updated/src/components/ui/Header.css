@@ -1,0 +1,27 @@
+/* Header.css */
+.header {
+    background-color: transparent !important; /* Set the background color to transparent */
+    box-shadow: none !important; /* Remove the box shadow */
+    padding: 0px 0px;
+    display: flex;
+    align-items: center;
+  }
+
+  
+  /* Style for the logo on the header */
+  .header-logo {
+    max-width: 200px; /* Adjust the maximum width of the logo */
+    height: auto; /* Maintain the aspect ratio */
+  }
+  
+  /* Add any other styles you need for the rest of the header elements */
+  
+
+  .custom-toggle-button {
+      color: wheat;
+      background-color: wheat;
+  }
+
+  .custom-dropdown {
+      color: wheat;
+  }
