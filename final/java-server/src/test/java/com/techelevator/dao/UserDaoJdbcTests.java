@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
 import org.junit.Assert;
 import org.junit.Before;
@@ -84,24 +85,24 @@ public class UserDaoJdbcTests extends BaseDaoTests {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_null_username() {
-        sut.create(null, USER_3.getPassword());
+        sut.create(new RegisterUserDto(null, USER_3.getPassword()));
     }
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_existing_username() {
-        sut.create(USER_1.getUsername(), USER_3.getPassword());
+        sut.create(new RegisterUserDto(USER_1.getUsername(), USER_3.getPassword()));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void create_user_with_null_password() {
-        sut.create(USER_3.getUsername(), null);
+        sut.create(new RegisterUserDto(USER_3.getUsername(), null));
     }
 
     @Test
     public void create_user_creates_a_user() {
         User newUser = new User(-1, "new", "user", "USER");
 
-        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getPassword());
+        boolean userWasCreated = sut.create(new RegisterUserDto(newUser.getUsername(), newUser.getPassword()));
 
         Assert.assertTrue(userWasCreated);
 
