@@ -24,8 +24,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height:100vh;
-  max-height: 100vh;
+  height:90%;
+}
+.card {
+  width:80% !important;
 }
 
 
@@ -46,7 +48,8 @@
 
 .image-reduced-height {
   max-width: 100%; /* Limit the maximum width */
-  max-height: 100%; /* Limit the maximum height */
+  max-height: 45vh; /* Limit the maximum height */
+  object-fit: cover;
   width: auto; /* Automatically adjust the width while preserving aspect ratio */
 }
 

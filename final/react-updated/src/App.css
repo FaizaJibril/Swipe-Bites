@@ -49,3 +49,7 @@
   max-height: 300px;
   max-width: 300px;
 }
+
+.bg-light{
+  background-color: transparent !important;
+}
