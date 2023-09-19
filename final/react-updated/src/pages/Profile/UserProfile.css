@@ -1,77 +1,82 @@
 /* UserProfile.css */
 
-/* Profile Container */
-.user-profile {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #e1e1e1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
+.user-profile-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px; /* Adjust the height as needed */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 18px;
   
-  /* Profile Header */
-  .user-profile h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  /* User Info Section */
-  .user-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .user-info img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
-  
-  .user-info h3 {
-    font-size: 20px;
-    margin: 0;
-  }
-  
-  .user-info p {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  /* Edit Profile Section */
-  .edit-profile {
-    margin-top: 20px;
-  }
-  
-  .edit-profile label {
-    display: block;
+}
+.user-profile-card h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 24px; /* Modify the font size as needed */
+  font-weight: bold;
+}
+
+.user-profile-card h3 {
+  font-size: 18px; /* Modify the font size as needed */
+}
+.headerText {
+  margin-bottom: 20px;
+  color: ivory;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card {
+  width: 300px; /* Adjust the card width as needed */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.card-header {
+  background-color: #fafafa; /* Header background color */
+  color: #fff; /* Header text color */
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 24px;
     font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .edit-profile input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .edit-profile button {
-    background-color: #0073b1;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .edit-profile button:hover {
-    background-color: #005d96;
-  }
-  
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.edit-profile label {
+  font-weight: bold;
+}
+
+.edit-profile input,
+.edit-profile select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.edit-profile button {
+  background-color: #ffd000; /* Button background color */
+  color: rgb(0, 0, 0); /* Button text color */
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.edit-profile button:hover {
+  background-color: #0056b3; /* Hover background color */
+}
+
+.disabled-input {
+  background-color: #f0f0f0; /* Background color for read-only inputs */
+  cursor: not-allowed;
+}

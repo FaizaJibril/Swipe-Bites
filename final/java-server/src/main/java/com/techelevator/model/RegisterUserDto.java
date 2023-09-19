@@ -18,6 +18,11 @@ public class RegisterUserDto {
     @NotEmpty(message = "Preferences must not be empty")
     private String preferences;
 
+    public RegisterUserDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public String getFullName() {
         return fullName;
     }
