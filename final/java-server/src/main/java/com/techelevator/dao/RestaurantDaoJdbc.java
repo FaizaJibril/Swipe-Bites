@@ -92,7 +92,7 @@ public class RestaurantDaoJdbc implements RestaurantDao{
     }
 
 
-    //pass it into the front end, line 87-88 cusine preference passed in
+    //pass it into the front end, line 87-88 cuisine preference passed in
 
     /*public List<Restaurant> getRecommendedRestaurantsByCuisine(long userId) {
         List<Restaurant> recommendedRestaurants = new ArrayList<>();
@@ -168,7 +168,7 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         String dislikedRestaurantIdsSql = "SELECT restaurant_id FROM disliked_restaurants WHERE user_id = ?";
         List<Integer> dislikedRestaurantIds = jdbcTemplate.queryForList(dislikedRestaurantIdsSql, Integer.class, userId);
 
-        // iterates through the disliked restaurant IDs and fetchs the restaurant details
+        // iterates through the disliked restaurant IDs and fetches the restaurant details
         for (Integer restaurantId : dislikedRestaurantIds) {
             String restaurantSql = "SELECT * FROM restaurant WHERE id = ?";
             SqlRowSet resultSet = jdbcTemplate.queryForRowSet(restaurantSql, restaurantId);
