@@ -17,8 +17,6 @@ public interface UserDao {
 
     boolean create(RegisterUserDto newUser);
 
-
-
     List<User> getAllUsers();
 
     void createUser(User user);

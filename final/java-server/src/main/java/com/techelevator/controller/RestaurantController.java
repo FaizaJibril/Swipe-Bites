@@ -1,13 +1,13 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.RestaurantDao;
-import com.techelevator.model.Restaurant;
-import com.techelevator.model.User;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -20,20 +20,18 @@ public class RestaurantController extends BaseController{
         this.restaurantDao = restaurantDao;
     }
 
-    /*@PostMapping("")
-    public void dislikeRestaurant(@PathVariable int id) {
-
-    } */
-
     @GetMapping
+    @CrossOrigin
     public List<Restaurant> getAllRestaurantById() {
         return restaurantDao.getAllRestaurant();
     }
     @GetMapping("/{id}")
+    @CrossOrigin
     public Restaurant getAllRestaurantById(@PathVariable int id) {
         return restaurantDao.getRestaurantById(id);
     }
     @GetMapping("/cuisine/{cuisine}")
+    @CrossOrigin
     //CUISINE
     public List<Restaurant> getRestaurantCuisine(@PathVariable String cuisine) {
         return restaurantDao.getRestaurantCuisine(cuisine);
@@ -77,17 +75,49 @@ public class RestaurantController extends BaseController{
         return likedRestaurants;
     }
 
-
-
     @GetMapping("/by-user-preference/{username}")
     public List<String> getRestaurantNamesByUserPreference(@PathVariable String username) {
         return restaurantDao.getRestaurantNamesByUserPreference(username);
     }
 
-    //@GetMapping
-   // public List<Restaurant> getRecommendedRestaurantsByCuisine() {
-  //      return restaurantDao.getRestaurantNamesByUserPreference();
-   // }
+    @GetMapping("/recommendations/{userId}")
+    public List<Restaurant> getRecommendedRestaurants(@PathVariable int userId, @RequestParam int limit) {
+        List<Restaurant> recommendedRestaurants = restaurantDao.getRecommendedRestaurantsByLikes(userId, limit);
+        return recommendedRestaurants;
+    }
+
+    @CrossOrigin
+    @PostMapping("/restaurant-reviews/{restaurantId}")
+    //reviews API
+    public List<Review> getReviewsForRestaurant(@PathVariable int restaurantId) {
+        return restaurantDao.getReviewsForRestaurant(restaurantId);
+    }
+
+    @PostMapping("/book-table")
+    @CrossOrigin
+    public void createBooking(@RequestBody BookingRequest bookingRequest) {
+        int userId = bookingRequest.getUserId();
+        int restaurantId = bookingRequest.getRestaurantId();
+        Timestamp bookingDate = bookingRequest.getBookingDate();
+        restaurantDao.createBooking(userId, restaurantId, bookingDate);
+
+    }
+    @DeleteMapping("/liked/{userId}/{restaurantId}")
+    //This is to delete from list of restaurants
+    public void deleteLikedRestaurant(@PathVariable int userId, @PathVariable int restaurantId) {
+        restaurantDao.deleteLikedRestaurant(userId, restaurantId);
+    }
+
+    @DeleteMapping("/refresh/{userId}/{restaurantId}")
+    public void refreshRestaurants(@PathVariable int userId, @PathVariable int restaurantId) {
+        restaurantDao.deleteLikedRestaurant(userId, restaurantId);
+        restaurantDao.deleteDislikedRestaurant(userId, restaurantId);
+    }
+
+
+
+
+
 
 
 

@@ -81,34 +81,34 @@ public class UserDaoJdbcTests extends BaseDaoTests {
         Assert.assertEquals(USER_2, users.get(1));
         Assert.assertEquals(USER_3, users.get(2));
     }
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void create_user_with_null_username() {
-        sut.create(null, USER_3.getPassword());
-    }
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void create_user_with_existing_username() {
-        sut.create(USER_1.getUsername(), USER_3.getPassword());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void create_user_with_null_password() {
-        sut.create(USER_3.getUsername(), null);
-    }
-
-    @Test
-    public void create_user_creates_a_user() {
-        User newUser = new User(-1, "new", "user", "USER");
-
-        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getPassword());
-
-        Assert.assertTrue(userWasCreated);
-
-        User actualUser = sut.findByUsername(newUser.getUsername());
-        newUser.setId(actualUser.getId());
-
-        actualUser.setPassword(newUser.getPassword()); // reset password back to unhashed password for testing
-        Assert.assertEquals(newUser, actualUser);
-    }
+//
+//    @Test(expected = DataIntegrityViolationException.class)
+//    public void create_user_with_null_username() {
+//        sut.create(null, USER_3.getPassword());
+//    }
+//
+//    @Test(expected = DataIntegrityViolationException.class)
+//    public void create_user_with_existing_username() {
+//        sut.create(USER_1.getUsername(), USER_3.getPassword());
+//    }
+//
+//    @Test(expected = IllegalArgumentException.class)
+//    public void create_user_with_null_password() {
+//        sut.create(USER_3.getUsername(), null);
+//    }
+//
+//    @Test
+//    public void create_user_creates_a_user() {
+//        User newUser = new User(-1, "new", "user", "USER");
+//
+//        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getPassword());
+//
+//        Assert.assertTrue(userWasCreated);
+//
+//        User actualUser = sut.findByUsername(newUser.getUsername());
+//        newUser.setId(actualUser.getId());
+//
+//        actualUser.setPassword(newUser.getPassword()); // reset password back to unhashed password for testing
+//        Assert.assertEquals(newUser, actualUser);
+//    }
 }

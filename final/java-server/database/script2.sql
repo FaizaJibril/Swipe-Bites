@@ -79,5 +79,19 @@ CREATE TABLE IF NOT EXISTS public.user_restaurant_match
 	FOREIGN KEY (restaurant_id) REFERENCES Restaurant(restaurant_id)
 	
 );
-
+create table review_restaurant ( 
+	review_id serial primary key,
+	user_id int, 
+	rating int check (rating >= 1 and rating <= 5),
+	restaurant_id int,
+	FOREIgn KEY (user_id) REFERENCES app_users(user_id),
+	FOREIgn KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
+);
+create table booking_table (
+	book_table_id serial primary key,
+user_id int,
+restaurant_id int,
+booking_date timestamp,
+foreign key (user_id) references app_users(user_id),
+foreign key (restaurant_id) references restaurant(restaurant_id));
 

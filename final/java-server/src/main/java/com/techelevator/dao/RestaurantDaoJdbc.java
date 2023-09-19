@@ -1,10 +1,12 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Restaurant;
+import com.techelevator.model.Review;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +64,6 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
 
 
-
     @Override
     public void createRestaurant(Restaurant restaurant) {
         String sql = "INSERT INTO restaurant (name, cuisine, price_range, reviews, photo_url, address)" + " VALUES (?, ?, ?, ?, ?, ?)";
@@ -92,28 +93,6 @@ public class RestaurantDaoJdbc implements RestaurantDao{
     }
 
 
-    //pass it into the front end, line 87-88 cusine preference passed in
-
-    /*public List<Restaurant> getRecommendedRestaurantsByCuisine(long userId) {
-        List<Restaurant> recommendedRestaurants = new ArrayList<>();
-
-        // get the user's cuisine preference from the app_users table
-        String cuisinePreferenceSql = "SELECT preferences FROM app_users WHERE user_id = ?";
-        String cuisinePreference = jdbcTemplate.queryForObject(cuisinePreferenceSql, String.class, userId);
-
-        // retrieve restaurants that match the user's cuisine preference
-        String sql = "SELECT * FROM restaurant WHERE cuisine = ?";
-        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(sql, cuisinePreference);
-
-        while (resultSet.next()) {
-            recommendedRestaurants.add(mapRowToRestaurant(resultSet));
-        }
-
-        return recommendedRestaurants;
-    }
-    8?
-     */
-
     public List<Restaurant> getRecommendedRestaurantsByCuisine(int userId) {
         List<Restaurant> recommendedRestaurants = new ArrayList<>();
 
@@ -134,8 +113,6 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         return recommendedRestaurants;
     }
 
-
-
     public List<Restaurant> getLikedRestaurantsByUserId(int userId) {
         List<Restaurant> likedRestaurants = new ArrayList<>();
         // RESTAURANT LIST TO OTHER SIDE
@@ -148,19 +125,14 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         while (results.next()){
             likedRestaurants.add(mapRowToRestaurant(results));
         }
-//        List<Integer> likedRestaurantIds = jdbcTemplate.queryForList(likedRestaurantIdsSql, Integer.class, userId);
-//
-//
-//        for (Integer restaurantId : likedRestaurantIds) {
-//            String restaurantSql = "SELECT * FROM restaurant WHERE id = ?";
-//            SqlRowSet resultSet = jdbcTemplate.queryForRowSet(restaurantSql, restaurantId);
-//            if (resultSet.next()) {
-//                likedRestaurants.add(mapRowToRestaurant(resultSet));
-//            }
-//        }
-
         return likedRestaurants;
     }
+
+    @Override
+    public List<Restaurant> getRecommendedRestaurantsByLikes(int userId, int limit) {
+        return null;
+    }
+
 
     public List<Restaurant> getDislikedRestaurantsByUserId(long userId) {
         List<Restaurant> dislikedRestaurants = new ArrayList<>();
@@ -180,8 +152,8 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         return dislikedRestaurants;
     }
 
-    @Override
-    public void likedRestaurant(long userId, int restaurantId) {
+
+    public void likedRestaurant(int userId, int restaurantId) {
         String sql = "INSERT INTO liked_restaurants (user_id, restaurant_id)" + " VALUES (?, ?)";
             jdbcTemplate.update(sql, userId, restaurantId);
 
@@ -192,28 +164,60 @@ public class RestaurantDaoJdbc implements RestaurantDao{
         jdbcTemplate.update(sql, userId, restaurantId);
     }
 
+    public List<Review> getReviewsForRestaurant(int restaurantId) {
+        List<Review> reviews = new ArrayList<>();
+        String sql = "insert into review_restaurant (user_id, review, restaurant_id)" + " VALUES (?,?,?)";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, restaurantId);
+
+        while (results.next()) {
+            int userId = results.getInt("user_id");
+            int rating = results.getInt("rating");
+            // You can create a Review object or use a simple data structure to represent a review
+            Review review = new Review(userId, rating);
+            reviews.add(review);
+        }
+
+        return reviews;
+    }
+
+    public void createBooking(int userId, int restaurantId, Timestamp bookingDate) {
+        String sql = "INSERT INTO booking_table (user_id, restaurant_id, booking_date) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, userId, restaurantId, bookingDate);
+    }
+
+    public void deleteLikedRestaurant(int userId, int restaurantId) {
+        String sql = "DELETE FROM liked_restaurants where user_id = ? and restaurant_id = ?";
+        jdbcTemplate.update(sql, userId, restaurantId);
+    }
+
+    @Override
+    public void deleteDislikedRestaurant(int userId, int restaurantId) {
+
+    }
 
 
+    public List<Restaurant> recommendations (int userId, int restaurantId) {
 
-    //
-    //
-    //    public Restaurant chooseRandomLikedRestaurant(long userId) {
-    //
-    //        List<Restaurant> likedRestaurants = restaurantDao.getLikedRestaurantsByUserId(userId);
-    //
-    //
-    //        if (likedRestaurants.isEmpty()) {
-    //            return null; // No liked restaurants found
-    //        }
-    //
-    //        // generate a random index to select a restaurant
-    //        Random random = new Random();
-    //        int randomIndex = random.nextInt(likedRestaurants.size());
-    //
-    //        // return the randomly chosen restaurant
-    //        return likedRestaurants.get(randomIndex);
-    //    }
-    //}
+        List <Restaurant> recommendations = new ArrayList<>();
+        String sql = "SELECT * from liked_restaurants where restaurant_id not in (select restaurant_id from booking_table)";
+return null;
+    }
+
+
+ /*   public Restaurant getRandomLikedRestaurantByUserId(int userId) {
+        List<Restaurant> likedRestaurants = getLikedRestaurantsByUserId(userId);
+
+        if (!likedRestaurants.isEmpty()) {
+            Random random = new Random();
+            int randomIndex = random.nextInt(likedRestaurants.size());
+            return likedRestaurants.get(randomIndex);
+        }
+
+        return null;
+    }
+*/
+
+
 
 
     private Restaurant mapRowToRestaurant(SqlRowSet rowSet) {
