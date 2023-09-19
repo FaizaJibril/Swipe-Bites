@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import Card from 'react-bootstrap/Card';
 import { like, dislike } from '../../api/RestaurantApi';
-
+import { Link} from 'react-router-dom';
 import './RestaurantCard.css';
 import { useParams } from 'react-router-dom';
 
@@ -17,12 +17,6 @@ function RestaurantCard() {
   const handleReset = () => {
     // Reload the page to reset the state
     window.location.reload();
-  };
-
-  const handleViewLikedRestaurants = () => {
-    // Add your logic to navigate to the liked restaurants page
-    // For example, you can use react-router-dom to navigate to a different route
-    // This could be done in your parent component or using a router library
   };
 
   useEffect(() => {
@@ -56,8 +50,8 @@ function RestaurantCard() {
   const handlers = useSwipeable({
     onSwipedRight: async () => {
       try {
-        // Make an API call to send liked restaurant details
-        await like(id);
+        // Make an API call to send diliked restaurant details
+        await dislike(id);
 
         // Add the liked restaurant to the likedRestaurants state
         setLikedRestaurants([...likedRestaurants, restaurants[currentIndex]]);
@@ -77,8 +71,8 @@ function RestaurantCard() {
     },
     onSwipedLeft: async () => {
       try {
-        // Make an API call to send disliked restaurant details
-        await dislike(id);
+        // Make an API call to send liked restaurant details
+        await like(id);
 
         // Add the disliked restaurant to the dislikedRestaurants state
         setDislikedRestaurants([
@@ -142,10 +136,12 @@ function RestaurantCard() {
           </Card.Body>
         </Card>
       ) : (
-        <div>
-          <p>Oops, no more restaurants to display.</p>
-          <button onClick={handleReset}>Reset Selections</button>
-          <button onClick={handleViewLikedRestaurants}>View Liked Restaurants</button>
+        <div className = "text-center">
+          <h1 className= "RestaurantCard h1"> Oops, no more restaurants to display.</h1>
+          <button className = "secondary-button" onClick={handleReset}>Reset Selections</button>
+          <Link to="/likes">
+          <button className = "secondary-button"> View Liked Restaurants</button>
+        </Link>
         </div>
       )}
     </div>

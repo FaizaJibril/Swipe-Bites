@@ -73,6 +73,7 @@ public class RestaurantController extends BaseController{
         restaurantDao.disLikedRestaurant(user.getId(),id);
     }
     @GetMapping("/{id}/liked")
+    @CrossOrigin
     @PreAuthorize("isAuthenticated()")
     //GETTING LIKED RESTAURANTS TO OTHER SIDE
     public List<Restaurant> getLikedRestaurants(@PathVariable int id) {

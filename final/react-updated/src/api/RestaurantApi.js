@@ -10,4 +10,8 @@ export const like = (id) => {
     return fetchWrapper.post(`restaurant/${id}/disLiked`, null);
   }
 
+  export const liked = (userid) => {
+    return fetchWrapper.get(`restaurant/${userid}/liked`, null);
+  }
+
 
