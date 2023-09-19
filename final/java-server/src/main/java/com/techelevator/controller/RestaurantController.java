@@ -56,20 +56,20 @@ public class RestaurantController extends BaseController{
 
     @PostMapping("/{id}/like")
     @PreAuthorize("isAuthenticated()")
-    @CrossOrigin
+    //Right SWIPE
     public void likedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
-        restaurantDao.likedRestaurant(user.getId(),id);
     }
     @PostMapping("/{id}/disLiked")
     @PreAuthorize("isAuthenticated()")
-    @CrossOrigin
+    //Left SWIPE
     public void disLikedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
-        restaurantDao.disLikedRestaurant(user.getId(),id);
+
     }
     @GetMapping("/{id}/liked")
     @PreAuthorize("isAuthenticated()")
+    //LIST
     //GETTING LIKED RESTAURANTS TO OTHER SIDE
     public List<Restaurant> getLikedRestaurants(@PathVariable int id) {
         List<Restaurant> likedRestaurants = restaurantDao.getLikedRestaurantsByUserId(id);
@@ -77,23 +77,6 @@ public class RestaurantController extends BaseController{
         return likedRestaurants;
     }
 
-//@GetMapping
-    // public List<Restaurant> getRecommendedRestaurantsByCuisine() {
-    //      return restaurantDao.getRestaurantNamesByUserPreference();
-    // }
-
-    //    @GetMapping("/{userId}/random-liked-restaurant")
-    //    @PreAuthorize("isAuthenticated()")
-    //    public ResponseEntity<Restaurant> getRandomLikedRestaurant(@PathVariable long userId) {
-    //        Restaurant randomLikedRestaurant = restaurantService.chooseRandomLikedRestaurant(userId);
-    //
-    //        if (randomLikedRestaurant != null) {
-    //            return ResponseEntity.ok(randomLikedRestaurant);
-    //        } else {
-    //            return ResponseEntity.notFound().build();
-    //        }
-    //    }
-    //}
 
 
     @GetMapping("/by-user-preference/{username}")
@@ -101,6 +84,10 @@ public class RestaurantController extends BaseController{
         return restaurantDao.getRestaurantNamesByUserPreference(username);
     }
 
+    //@GetMapping
+   // public List<Restaurant> getRecommendedRestaurantsByCuisine() {
+  //      return restaurantDao.getRestaurantNamesByUserPreference();
+   // }
 
 
 
