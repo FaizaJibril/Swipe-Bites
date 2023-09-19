@@ -6,6 +6,7 @@ export const like = (id) => {
     return fetchWrapper.post(`restaurant/${id}/like`, null);
   }
 
+
   export const dislike = (id) => {
     return fetchWrapper.post(`restaurant/${id}/disLiked`, null);
   }

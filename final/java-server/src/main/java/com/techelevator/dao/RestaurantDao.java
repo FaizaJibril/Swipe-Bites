@@ -20,7 +20,7 @@ public interface RestaurantDao {
    List<String> getRestaurantNamesByUserPreference(String username);
 
     void insertPreference(String preferences);
-
+    void likedRestaurant(int userId, int restaurantId);
 
     void disLikedRestaurant(long userId, int restaurantId);
 

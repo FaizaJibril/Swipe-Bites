@@ -61,12 +61,14 @@ public class RestaurantController extends BaseController{
     //Right SWIPE
     public void likedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
+        restaurantDao.likedRestaurant((int)user.getId(),id);
     }
     @PostMapping("/{id}/disLiked")
     @PreAuthorize("isAuthenticated()")
     //Left SWIPE
     public void disLikedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
+        restaurantDao.disLikedRestaurant((int)user.getId(),id);
 
     }
     @GetMapping("/{id}/liked")
