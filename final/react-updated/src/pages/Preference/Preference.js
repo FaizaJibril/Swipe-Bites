@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import './Preference.css';
+import { UserContext } from '../../context/UserContext';
+import { useContext } from 'react';
 
 const cuisines = [
   {
@@ -41,7 +43,6 @@ const cuisines = [
 function Preference() {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       if (currentIndex < cuisines.length - 1) {
@@ -54,15 +55,15 @@ function Preference() {
       }
     },
   });
-
   const handlePreferenceSelection = (cuisineId) => {
     const selectedCuisine = cuisines.find((cuisine) => cuisine.id === cuisineId);
     navigate(`/restaurant/${selectedCuisine.name}`);
   };
-
+  const userContext = useContext(UserContext);
+  const currentUser = userContext.currentUser;
   return (
     <div className="container" {...handlers}>
-      <h1 className= "welcomeText">Hello There!</h1>
+      <h1 className= "welcomeText">Hi {currentUser.fullName}!, what are you in the mood for? </h1>
       <p className="headerText">Swipe to Select Your Cuisine</p>
       <div className="cuisineContainer">
         {cuisines.map((cuisine, index) => (
@@ -85,5 +86,4 @@ function Preference() {
     </div>
   );
 }
-
 export default Preference;

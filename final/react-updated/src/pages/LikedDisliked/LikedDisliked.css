@@ -1,21 +1,21 @@
 /* LikedRestaurants.css */
 
-body {
+/* body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
   padding-top: 20px;
-  margin: 0; /* Remove default body margin */
+  margin: 0; 
   background: url("./../../images/360_F_445731650_wF48Hjvi9DDn1Kz6bMjgGbrVYDmWvTeG.png") center/cover no-repeat fixed;
-  background-attachment: fixed; /* Keep the background fixed */
-}
+  background-attachment: fixed; 
+} */
 
-h1 {
+/* h1 {
   font-size: 24px;
   margin-bottom: 20px;
-}
+} */
 
 
 .centered-container {
@@ -23,13 +23,14 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 100vh; /* Use min-height instead of height */
+  min-height: 100vh;
   padding-top: 20px;
-  background: url("./../../images/360_F_445731650_wF48Hjvi9DDn1Kz6bMjgGbrVYDmWvTeG.png") center/cover no-repeat fixed;
+  /* background: url("./../../images/360_F_445731650_wF48Hjvi9DDn1Kz6bMjgGbrVYDmWvTeG.png") center/cover no-repeat fixed; */
   background-attachment:scroll; /* Optional: Keep the background fixed */
 }
 h1 {
   font-size: 24px;
+  color: rgb(255, 255, 255);
   margin-bottom: 20px;
 }
 .restaurant-list {
@@ -39,7 +40,6 @@ h1 {
   gap: 20px;
 }
 .restaurant-card {
-  width: 300px;
   cursor: pointer;
   transition: transform 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

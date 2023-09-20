@@ -23,6 +23,7 @@
   }
 
   .custom-dropdown {
-      color: wheat !important;
       font-weight: bold;
+      font-size: 20px;
+      color: wheat !important;
   }
