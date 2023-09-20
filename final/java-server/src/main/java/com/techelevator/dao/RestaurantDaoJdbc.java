@@ -195,6 +195,8 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
     @Override
     public void deleteDislikedRestaurant(int userId, int restaurantId) {
+        String sql = "DELETE FROM disliked_restaurants where user_id = ? and restaurant_id = ?";
+        jdbcTemplate.update(sql, userId, restaurantId);
 
     }
 

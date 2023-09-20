@@ -124,6 +124,14 @@ public class RestaurantController extends BaseController {
         restaurantDao.deleteLikedRestaurant(userId, restaurantId);
     }
 
+    @DeleteMapping("/{userId}/refresh/{restaurantId}")
+    //Refresh
+    public void deletePreferenceRestaurant(@PathVariable int userId, @PathVariable int restaurantId) {
+        restaurantDao.deleteLikedRestaurant(userId, restaurantId);
+        restaurantDao.deleteDislikedRestaurant(userId, restaurantId);
+    }
+
+
     @DeleteMapping("/refresh/{userId}/{restaurantId}")
     public void refreshRestaurants(@PathVariable int userId, @PathVariable int restaurantId) {
         restaurantDao.deleteLikedRestaurant(userId, restaurantId);
