@@ -53,3 +53,7 @@
 .bg-light{
   background-color: transparent !important;
 }
+#background-video{
+  z-index: -1;
+  position: absolute;
+}

@@ -11,6 +11,7 @@ import RestaurantCard from "./pages/Restaurant Listing/RestaurantCard"; // Corre
 import './App.css';
 import UserProfile from './pages/Profile/UserProfile';
 import LikedDisliked from './pages/LikedDisliked/LikedDisliked'
+import BackgroundVideo from './components/ui/BackgroundVideo';
 
 
 const MyApp = () => {
