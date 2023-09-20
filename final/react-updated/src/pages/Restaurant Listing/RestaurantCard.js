@@ -5,7 +5,6 @@ import { like, dislike } from '../../api/RestaurantApi';
 import { Link} from 'react-router-dom';
 import './RestaurantCard.css';
 import { useParams } from 'react-router-dom';
-
 function RestaurantCard() {
   let { cuisine } = useParams();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,12 +12,10 @@ function RestaurantCard() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [likedRestaurants, setLikedRestaurants] = useState([]);
   const [dislikedRestaurants, setDislikedRestaurants] = useState([]);
-
   const handleReset = () => {
     // Reload the page to reset the state
     window.location.reload();
   };
-
   useEffect(() => {
     async function fetchRestaurantData() {
       try {
@@ -38,29 +35,23 @@ function RestaurantCard() {
     }
     fetchRestaurantData();
   }, []);
-
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-
   const { id, name, description, priceRange, reviews, photoUrl, address } =
     restaurants[currentIndex] || {};
-
   // left swipe is disliked and right swipe is liked
   const handlers = useSwipeable({
     onSwipedRight: async () => {
       try {
         // Make an API call to send diliked restaurant details
         await dislike(id);
-
         // Add the liked restaurant to the likedRestaurants state
         setLikedRestaurants([...likedRestaurants, restaurants[currentIndex]]);
-
         // Remove the liked restaurant from the available restaurants
         const updatedRestaurants = [...restaurants];
         updatedRestaurants.splice(currentIndex, 1);
         setRestaurants(updatedRestaurants);
-
         // Move to the next restaurant
         setCurrentIndex((prevIndex) =>
           prevIndex === updatedRestaurants.length - 1 ? 0 : prevIndex + 1
@@ -73,18 +64,15 @@ function RestaurantCard() {
       try {
         // Make an API call to send liked restaurant details
         await like(id);
-
         // Add the disliked restaurant to the dislikedRestaurants state
         setDislikedRestaurants([
           ...dislikedRestaurants,
           restaurants[currentIndex],
         ]);
-
         // Remove the disliked restaurant from the available restaurants
         const updatedRestaurants = [...restaurants];
         updatedRestaurants.splice(currentIndex, 1);
         setRestaurants(updatedRestaurants);
-
         // Move to the next restaurant
         setCurrentIndex((prevIndex) =>
           prevIndex === updatedRestaurants.length - 1 ? 0 : prevIndex + 1
@@ -94,14 +82,11 @@ function RestaurantCard() {
       }
     },
   });
-
   function generateDollarSigns(priceRange) {
     const dollarSigns = '$'.repeat(priceRange); // Repeat '$' based on priceRange
     return dollarSigns;
   }
-
   const truncatedDescription = reviews?.substring(0, 100); // Adjust the character limit
-
   return (
     <div className="centered-container">
       {currentIndex < restaurants.length ? (
@@ -147,5 +132,4 @@ function RestaurantCard() {
     </div>
   );
 }
-
 export default RestaurantCard;

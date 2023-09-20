@@ -1,13 +1,15 @@
 /* LikedRestaurants.css */
 
+
 .centered-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100vh;
-  background-color: #f0f0f0;
-  padding-top: 20px; 
+  min-height: 100vh; /* Use min-height instead of height */
+  padding-top: 20px;
+  background: url("./../../images/360_F_445731650_wF48Hjvi9DDn1Kz6bMjgGbrVYDmWvTeG.png") center/cover no-repeat fixed;
+  background-attachment: fixed; /* Optional: Keep the background fixed */
 }
 
 h1 {
@@ -34,42 +36,38 @@ h1 {
   transform: scale(1.02);
 }
 
-.restaurant-card .card-title {
+.card-title {
   font-size: 18px;
   margin-bottom: 10px;
   text-align: center;
 }
 
-.restaurant-card .card-img-top {
+.card-img-top {
   height: 200px;
   object-fit: cover;
 }
 
-.restaurant-card .card-body {
+.card-body {
   padding: 20px;
 }
 
-.restaurant-card .card-text {
+.card-text {
   font-size: 14px;
   line-height: 1.4;
 }
 
-.restaurant-card .btn-primary {
+.book-button {
   width: 100%;
-  background-color: #007bff;
+  background-color: #ebdb03;
   border: none;
-  color: #fff;
+  color: rgb(12, 12, 11);
   font-weight: bold;
+  font-size: 20px;
   margin-top: 10px;
   cursor: pointer;
 }
 
-.restaurant-card .btn-primary:hover {
-  background-color: #0056b3;
-}
-
-@media (max-width: 768px) {
-  .restaurant-card {
-    width: 100%;
-  }
+.book-button:hover {
+  background-color:  #fff; 
+        color:  #000000;
 }
