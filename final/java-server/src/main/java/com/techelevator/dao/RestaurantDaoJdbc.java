@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Repository
 public class RestaurantDaoJdbc implements RestaurantDao{
@@ -197,13 +198,33 @@ public class RestaurantDaoJdbc implements RestaurantDao{
 
     }
 
-
-    public List<Restaurant> recommendations (int userId, int restaurantId) {
-
-        List <Restaurant> recommendations = new ArrayList<>();
-        String sql = "SELECT * from liked_restaurants where restaurant_id not in (select restaurant_id from booking_table)";
-return null;
+    @Override
+    public List<Restaurant> recommendations(int userId) {
+        return null;
     }
+
+
+    public List<Restaurant> recommendations(int userId, int restaurantId) {
+        List<Restaurant> recommendations = new ArrayList<>();
+        //this code will return restaurants that are in the liked_table but are not booked
+
+        // Also join the restaurant table on restaurant_id to retrieve additional restaurant information
+        String sql = "SELECT lr.restaurant_id, r.name, r.cuisine, r.price_range, r.reviews, r.photo_url, r.address " +
+                "FROM liked_restaurants lr " +
+                "LEFT JOIN booking_table bt ON lr.restaurant_id = bt.restaurant_id " +
+                "JOIN restaurant r ON lr.restaurant_id = r.id " +
+                "WHERE bt.restaurant_id IS NULL";
+
+        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(sql);
+
+        while (resultSet.next()) {
+            recommendations.add(mapRowToRestaurant(resultSet));
+        }
+
+        return recommendations;
+    }
+
+
 
 
  /*   public Restaurant getRandomLikedRestaurantByUserId(int userId) {

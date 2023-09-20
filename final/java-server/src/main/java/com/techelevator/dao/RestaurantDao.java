@@ -35,4 +35,7 @@ public interface RestaurantDao {
     void deleteLikedRestaurant(int userId, int restaurantId);
 
     void deleteDislikedRestaurant(int userId, int restaurantId);
+
+
+    List<Restaurant> recommendations(int userId);
 }

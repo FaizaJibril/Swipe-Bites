@@ -10,12 +10,14 @@ import java.security.Principal;
 
 import java.sql.Timestamp;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/restaurant")
 @CrossOrigin
-public class RestaurantController extends BaseController{
+public class RestaurantController extends BaseController {
     private final RestaurantDao restaurantDao;
 
 
@@ -26,25 +28,29 @@ public class RestaurantController extends BaseController{
     @GetMapping
     @CrossOrigin
     public List<Restaurant> getAllRestaurantById() {
-   return restaurantDao.getAllRestaurant();
+        return restaurantDao.getAllRestaurant();
 
     }
+
     @GetMapping("/{id}")
     @CrossOrigin
     public Restaurant getAllRestaurantById(@PathVariable int id) {
         return restaurantDao.getRestaurantById(id);
     }
+
     @GetMapping("/cuisine/{cuisine}")
     @CrossOrigin
     //CUISINE
     public List<Restaurant> getRestaurantCuisine(@PathVariable String cuisine) {
         return restaurantDao.getRestaurantCuisine(cuisine);
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createRestaurant(@RequestBody Restaurant restaurant) {
         restaurantDao.createRestaurant(restaurant);
     }
+
     @PutMapping("/{id}")
     public void updateRestaurant(@PathVariable int id, @RequestBody Restaurant restaurant) {
         restaurant.setId(id);
@@ -62,6 +68,7 @@ public class RestaurantController extends BaseController{
     public void likedRestaurant(@PathVariable int id, Principal principal) {
         User user = super.getUserFromPrincipal(principal);
     }
+
     @PostMapping("/{id}/disLiked")
     @PreAuthorize("isAuthenticated()")
     //Left SWIPE
@@ -69,6 +76,7 @@ public class RestaurantController extends BaseController{
         User user = super.getUserFromPrincipal(principal);
 
     }
+
     @GetMapping("/{id}/liked")
     @CrossOrigin
     @PreAuthorize("isAuthenticated()")
@@ -107,6 +115,7 @@ public class RestaurantController extends BaseController{
         restaurantDao.createBooking(userId, restaurantId, bookingDate);
 
     }
+
     @DeleteMapping("/liked/{userId}/{restaurantId}")
     //This is to delete from list of restaurants
     public void deleteLikedRestaurant(@PathVariable int userId, @PathVariable int restaurantId) {
@@ -119,13 +128,35 @@ public class RestaurantController extends BaseController{
         restaurantDao.deleteDislikedRestaurant(userId, restaurantId);
     }
 
+    @GetMapping("/restaurants/recommendations")
+    public List<Restaurant> getRecommendations(@RequestParam int userId) {
+        List<Restaurant> recommendations = restaurantDao.recommendations(userId);
+  //this code returns a random restaurant recommendation from the list of recommendations in the dao
+        if (!recommendations.isEmpty()) {
 
+            Random random = new Random();
+            int randomIndex = random.nextInt(recommendations.size());
+            return Collections.singletonList(recommendations.get(randomIndex));
+        } else {
+            return null;
 
-
-
-
-
-
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
