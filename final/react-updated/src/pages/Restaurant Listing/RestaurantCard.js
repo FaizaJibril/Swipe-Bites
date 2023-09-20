@@ -44,8 +44,8 @@ function RestaurantCard() {
   const handlers = useSwipeable({
     onSwipedRight: async () => {
       try {
-        // Make an API call to send diliked restaurant details
-        await dislike(id);
+        // Make an API call to send liked restaurant details
+        await like(id);
         // Add the liked restaurant to the likedRestaurants state
         setLikedRestaurants([...likedRestaurants, restaurants[currentIndex]]);
         // Remove the liked restaurant from the available restaurants
@@ -62,8 +62,8 @@ function RestaurantCard() {
     },
     onSwipedLeft: async () => {
       try {
-        // Make an API call to send liked restaurant details
-        await like(id);
+        // Make an API call to send disliked restaurant details
+        await dislike(id);
         // Add the disliked restaurant to the dislikedRestaurants state
         setDislikedRestaurants([
           ...dislikedRestaurants,

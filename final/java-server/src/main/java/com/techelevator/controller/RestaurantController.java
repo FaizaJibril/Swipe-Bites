@@ -132,12 +132,6 @@ public class RestaurantController extends BaseController {
     }
 
 
-    @DeleteMapping("/refresh/{userId}/{restaurantId}")
-    public void refreshRestaurants(@PathVariable int userId, @PathVariable int restaurantId) {
-        restaurantDao.deleteLikedRestaurant(userId, restaurantId);
-        restaurantDao.deleteDislikedRestaurant(userId, restaurantId);
-    }
-
     @GetMapping("/restaurants/recommendations")
     public List<Restaurant> getRecommendations(@RequestParam int userId) {
         List<Restaurant> recommendations = restaurantDao.recommendations(userId);

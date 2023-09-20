@@ -24,10 +24,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height:90%;
-}
-.card {
-  width:80% !important;
+  height:100vh;
+  max-height: 100vh;
 }
 
 
@@ -47,9 +45,8 @@
 }
 
 .image-reduced-height {
-  max-width: 100% !important; /* Limit the maximum width */
-  max-height: 45vh !important; /* Limit the maximum height */
-  object-fit: cover;
+  max-width: 100%; /* Limit the maximum width */
+  max-height: 100%; /* Limit the maximum height */
   width: auto; /* Automatically adjust the width while preserving aspect ratio */
 }
 
@@ -70,6 +67,12 @@
 /* Title styles */
 .RestaurantCard h3 {
   font-size: 24px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.RestaurantCard h1{
+  font-size: 30px;
   margin-bottom: 8px;
   color: #333;
 }
@@ -116,13 +119,3 @@
   -webkit-line-clamp: 20;
 }
   
-.secondary-button {
-  background-color: #000000;
-  color: #fff; 
-  font-size: 16px; 
-
-  &:hover {
-      background-color:  #fff; 
-      color:  #000000;
-    }
-}
